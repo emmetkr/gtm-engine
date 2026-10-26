@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git worktree:*)",
+      "Bash(python3 ops/check-corpus.py:*)",
+      "Bash(python3 ops/check-client-copy.py:*)"
+    ],
+    "deny": [
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)"
+    ]
+  },
+  "hooks": {
+    "Stop": [{"hooks": [{"type": "command", "command": "\"${CLAUDE_PROJECT_DIR:-.}/sessions/save.sh\" 2>/dev/null || true", "async": true}]}],
+    "SessionEnd": [{"hooks": [{"type": "command", "command": "\"${CLAUDE_PROJECT_DIR:-.}/sessions/summarize.sh\" 2>/dev/null || true", "async": true}]}],
+    "SessionStart": [{"hooks": [{"type": "command", "command": "\"${CLAUDE_PROJECT_DIR:-.}/sessions/context.sh\" 2>/dev/null || true"}]}]
+  }
+}

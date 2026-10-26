@@ -1,0 +1,17 @@
+{
+  "_comment": "Config for check-corpus.py and check-client-copy.py. price_ok lists where a figure may appear, each with its reason. CLAUDE.md and non-negotiables.md name the categories; this names the paths. If they disagree, fix both in one commit.",
+  "commercial": ".claude/skills/sales-playbook/references/commercial.md",
+  "price_ok": {
+    ".claude/skills/sales-playbook/references/commercial.md": "authors every figure",
+    "client-facing/": "the send surface; figures must match commercial.md",
+    "clients/": "custom-offer.md and [contracted] lines only; other figures are flagged",
+    "tasks/": "a task may exist because a figure was wrong",
+    "NEEDS.md": "struck rows record what a figure used to be",
+    "STACK.md": "tool notes, not our prices"
+  },
+  "banned_terms": {
+    "_example_old_product_name": "use the current product name",
+    "seamless": "say what actually happens"
+  },
+  "client_copy_paths": ["client-facing/"]
+}

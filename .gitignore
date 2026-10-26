@@ -1,0 +1,10 @@
+.DS_Store
+.env
+.env.*
+node_modules/
+.vercel/
+__pycache__/
+# session records are machine-local; the hook scripts are tracked
+sessions/*
+!sessions/*.sh
+!sessions/README.md

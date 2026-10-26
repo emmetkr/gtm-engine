@@ -1,0 +1,37 @@
+name: heartbeat watch
+# The watchdog lives outside the agents on purpose. A heartbeat read only by the next run is
+# circular: when the agent is down there is no next run. For this to miss an outage, GitHub and
+# the agent have to fail together.
+#
+# Secret: SLACK_WEBHOOK_URL (incoming webhook to the sales or ops channel).
+on:
+  schedule:
+    - cron: "30 15 * * *"
+  workflow_dispatch: {}
+permissions: { contents: read }
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - name: Check each agent branch
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          # agent=max hours of silence
+          AGENTS: "postcall=6 keeper=30 digest=200"
+        run: |
+          git fetch origin '+refs/heads/claude/*:refs/remotes/origin/claude/*' || true
+          now=$(date +%s); msg=""
+          for pair in $AGENTS; do
+            a=${pair%=*}; max=${pair#*=}
+            ts=$(git log -1 --format=%ct "origin/claude/$a" -- "agents/$a/state/heartbeat.md" 2>/dev/null || echo 0)
+            age=$(( (now - ${ts:-0}) / 3600 ))
+            if [ "${ts:-0}" = 0 ]; then msg="$msg\n$a: no heartbeat ever"; 
+            elif [ "$age" -gt "$max" ]; then msg="$msg\n$a: silent ${age}h (limit ${max}h)"; fi
+          done
+          if [ -n "$msg" ]; then
+            echo -e "Agents down:$msg"
+            [ -n "$SLACK_WEBHOOK_URL" ] && curl -s -X POST -H 'Content-type: application/json' \
+              --data "{\"text\":\"Agents down:$msg\"}" "$SLACK_WEBHOOK_URL"
+          else echo "all agents healthy"; fi
