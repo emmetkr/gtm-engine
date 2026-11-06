@@ -21,6 +21,9 @@ jobs:
           # agent=max hours of silence
           AGENTS: "postcall=6 keeper=30 digest=200"
         run: |
+          # Not set up yet (no Slack webhook): nothing to watch or alert, so pass quietly instead
+          # of failing every day. Add the secret in SETUP step 5 to turn it on.
+          if [ -z "$SLACK_WEBHOOK_URL" ]; then echo "SLACK_WEBHOOK_URL not set; watchdog off"; exit 0; fi
           git fetch origin '+refs/heads/claude/*:refs/remotes/origin/claude/*' || true
           now=$(date +%s); msg=""
           for pair in $AGENTS; do
@@ -32,6 +35,6 @@ jobs:
           done
           if [ -n "$msg" ]; then
             echo -e "Agents down:$msg"
-            [ -n "$SLACK_WEBHOOK_URL" ] && curl -s -X POST -H 'Content-type: application/json' \
+            curl -s -X POST -H 'Content-type: application/json' \
               --data "{\"text\":\"Agents down:$msg\"}" "$SLACK_WEBHOOK_URL"
           else echo "all agents healthy"; fi
