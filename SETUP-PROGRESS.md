@@ -19,7 +19,7 @@ up at the first open box. `[~]` means deferred on purpose, with a row in `NEEDS.
 - [ ] 5e. Outbound sending live: separate domain warmed, tracking domain verified, CRM properties, first list loaded and approved (`outbound/OUTBOUND.md` steps 1-8)
 - [ ] 5f. Click → LinkedIn receiver deployed and hook registered; test click queued or tasked (`outbound/OUTBOUND.md` step 9)
 - [ ] 5g. First daily call list written to the CRM (`outbound/OUTBOUND.md` step 10)
-- [ ] 5h. Close flow live: commercial.md priced, seller.json filled, lawyer's Order Form wired, Gmail draft check, invoice token probe passes, Closed Won receiver optional (`close/CLOSE.md`)
+- [ ] 5h. Close flow live: commercial.md priced, seller.json filled, lawyer's Order Form wired, Gmail draft check, invoice token probe passes, Closed Won receiver optional, DocuSign signature receiver optional (`close/CLOSE.md`)
 
 ## Notes
 

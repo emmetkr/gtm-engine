@@ -49,7 +49,8 @@ file loads automatically. Change a rule there first, then here.
 3. **Never edit anything already in a client's hands** unless the change cannot alter what they
    believe was offered. A factual change is a reissue.
 4. **Never send email, contracts or client messages on a person's behalf.** Agents write drafts.
-5. **Never move a deal stage unattended.** Agents propose; a person moves it.
+5. **Never move a deal stage unattended.** Agents propose; a person moves it. The one exception
+   is a completed DocuSign envelope, which moves the deal to Closed Won (`close/CLOSE.md`).
 6. **Never guess a fact about a prospect.** It comes from enrichment or their own site, or it
    is cut.
 7. **`archive/` is not part of the dataset.** Search it when hunting a past decision; never load

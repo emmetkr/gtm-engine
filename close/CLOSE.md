@@ -1,4 +1,4 @@
-# Close: Summary of Terms, Order Form, invoice
+# Close: Summary of Terms, Order Form, signature, invoice
 
 What it does, end to end. Agents draft every piece; a person approves and sends every piece.
 
@@ -15,7 +15,12 @@ deal is ready to close (a person says so, or it reaches your proposal stage)
   └─ Gmail draft to the contact, PDF attached        ← a person reads it and sends it
   └─ sent copy filed in clients/<slug>/outreach/, row in record.md, git tag client/<slug>-<date>
 
-deal signed, a person moves it to Closed Won
+terms agreed
+  └─ close/docusign-draft.py makes a DRAFT envelope, hubspot_deal_id on it  ← a person places the
+       fields and sends it (no e-signature tool: sign however you sign, and move the deal by hand)
+
+every signer has signed
+  └─ DocuSign Connect → ops/receivers/api/sign-<suffix>.js → deal moves to Closed Won
   └─ HubSpot workflow POSTs the deal to the invoice receiver
        └─ DRAFT invoice from the deal's line items (or amount), task on the owner
   or, by hand: close/hubspot-create-invoice.py --lines-file …
@@ -28,6 +33,8 @@ Files:
 |---|---|
 | `close/make-close-docs.py` | Deal file + canon → Summary of Terms, Order Form, email, lines file |
 | `close/hubspot-create-invoice.py` | Draft HubSpot invoice from the lines file or typed lines. Token route |
+| `close/docusign-draft.py` | Order Form PDF → draft DocuSign envelope with `hubspot_deal_id` on it. Dry run by default; never sends |
+| `ops/receivers/api/sign-CHANGE-ME.js` | DocuSign envelope completed → deal to Closed Won, signers logged on the deal |
 | `ops/receivers/api/invoice-CHANGE-ME.js` | Closed Won → draft invoice + task on the owner |
 | `close/templates/summary-of-terms.md` | The one-page terms sheet. Edit the words, keep the shape |
 | `close/templates/order-form.md` | Starter Order Form for founders with no lawyer's form yet. Gaps marked `[[LAWYER: …]]` |
@@ -171,6 +178,48 @@ It returns the invoice and lines it would create and writes nothing. Then move t
 Closed Won: one draft invoice appears on the deal, the owner has a task, and Next step names the
 invoice. Delete the test invoice after.
 
+### 7. DocuSign: signed → Closed Won (optional)
+
+A completed envelope moves the deal, and with step 6 on, the invoice drafts itself. Connect is
+DocuSign's webhook and depends on your plan (reports put it at Business Pro and above; if
+Settings has no Connect page, ask DocuSign). Without it, skip this step: move the deal by hand
+when it's signed.
+
+**The receiver.**
+
+1. Rename `ops/receivers/api/sign-CHANGE-ME.js` with a random suffix (`openssl rand -hex 12`).
+2. In Vercel set `HUBSPOT_ACCESS_TOKEN`, `DEALS_PIPELINE`, `CLOSED_WON_STAGE`, `OPEN_STAGES` (the
+   stage ids a deal can be signed from, usually Proposal Sent and Verbal, from `crm-records`) and
+   `OWN_DOMAINS` (your own email domains, so your countersigner is never matched as the
+   customer). Deploy from `ops/receivers/`.
+3. DocuSign → Settings → Connect → Add Configuration → Custom. URL
+   `https://<project>.vercel.app/api/sign-<suffix>`, data format JSON (REST v2.1), event
+   Envelope Signed/Completed, include recipients and custom fields, and turn on Require
+   Acknowledgement so a CRM failure is retried. Everything else off.
+
+**Creating envelopes.** Two routes:
+
+- **The script** (`close/docusign-draft.py`) sets `hubspot_deal_id`, so the receiver never has
+  to guess. In DocuSign → Settings → Apps and Keys, copy the API Account ID and Account Base URI
+  into `.env` as `DOCUSIGN_ACCOUNT_ID` and `DOCUSIGN_BASE_URI`, and add a
+  `DOCUSIGN_ACCESS_TOKEN` with the `signature` scope. Tokens expire within hours: paste a fresh
+  one from DocuSign's API Explorer, or build the JWT grant if you send often.
+- **The Claude DocuSign connector** opens an upload window where a person adds the file,
+  signers and fields. It can't set a custom field, so the receiver falls back to matching signer
+  emails. That works when the signer is a contact on exactly one open deal.
+
+**Check:** with a test deal at an open stage, call the receiver with `?dry=1` and a fake
+completed envelope. It names the deal it would move and writes nothing.
+
+```
+curl -s -X POST "https://<project>.vercel.app/api/sign-<suffix>?dry=1" \
+  -H "Content-Type: application/json" \
+  -d '{"event":"envelope-completed","data":{"envelopeId":"test","envelopeSummary":{"status":"completed","customFields":{"textCustomFields":[{"name":"hubspot_deal_id","value":"<deal id>"}]}}}}'
+```
+
+Then send yourself a real envelope with a test deal's id on it and sign it. The deal moves to
+Closed Won and its description names the envelope and the signers.
+
 ## Per deal
 
 ### 1. The deal is ready
@@ -273,8 +322,24 @@ row, new tag. Never edit what they hold (`docs/versioning-client-copies.md`).
 
 ### 7. Signed
 
-A person moves the deal to Closed Won (agents never move stages). File the countersigned copy
-in `clients/<slug>/outreach/` and record it.
+With DocuSign on (setup step 7), once the terms are agreed:
+
+```
+python3 close/docusign-draft.py clients/<slug>/close/deal.json \
+    --pdf clients/<slug>/close/<date>-<slug>-order-form.pdf \
+    --countersigner "Your Name <you@example.com>"               # dry run
+... --apply
+```
+
+That makes a draft and sends nothing. A person opens it in DocuSign Drafts, places the signature
+fields, reads it and sends it. When every signer has finished, the receiver moves the deal to
+Closed Won and logs who signed. If the deal doesn't move, the Vercel log says why (no match, two
+matches, wrong stage): fix that and move it by hand.
+
+Without DocuSign, a person moves the deal to Closed Won. Either way, agents never move stages.
+File the countersigned copy in `clients/<slug>/outreach/` and record it.
+
+**Check:** the deal is Closed Won and the signed copy is filed.
 
 ### 8. The invoice
 

@@ -26,6 +26,7 @@ before anything gets wired. Read this to understand the tradeoff, then tell Clau
 | **Webhook receivers** | Vercel functions | Free tier, deploys straight from `ops/receivers/` | Cloudflare Workers, Netlify | — |
 | **Team signal** | Slack | One sales channel; the CRM workflow posts the card (on a CRM plan without workflows, `sales-intake` posts it through the Slack connector) | Teams | — |
 | **Email** | Gmail connector | Agents draft in the rep's own thread; a person sends | Outlook connector | — |
+| **E-signature** | DocuSign | Connect webhook closes the deal the moment every signer finishes; REST API creates the envelope | Dropbox Sign, PandaDoc | — |
 | **Docs** | Google Drive connector | Proposals and prep land where the team already works | Notion | — |
 | **Web + booking analytics** | PostHog | Booking conversions, funnels, all queryable by an agent | GA4 | — |
 | **Billing (self-serve)** | Stripe | Promo codes and trials with no engineering | — | — |

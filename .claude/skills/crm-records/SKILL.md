@@ -50,7 +50,8 @@ Two creators for one object is how duplicate deals happen.
 | Stalled | `<ID>` | 0 | No motion, not dead | infer from the call |
 | Closed Lost | `<ID>` | 0 | Dead, with a reason | — |
 
-Stages are moved by a person. Agents propose.
+Stages are moved by a person. Agents propose. The one exception: a completed DocuSign envelope
+moves its deal to Closed Won through the signature receiver (`close/CLOSE.md`).
 
 ## Required fields
 

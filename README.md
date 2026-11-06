@@ -20,7 +20,8 @@ have:
   LinkedIn connect, and a daily call list ranked by engagement
   ([OUTBOUND.md](outbound/OUTBOUND.md)).
 - **The close**: terms sheet and order form generated from the deal and your pricing, a Gmail
-  draft for you to send, and a draft invoice on Closed Won ([CLOSE.md](close/CLOSE.md)).
+  draft for you to send, a DocuSign envelope that moves the deal to Closed Won when it's signed,
+  and a draft invoice from there ([CLOSE.md](close/CLOSE.md)).
 - **Every gotcha we paid for**, with the fix ([TRICKS.md](TRICKS.md)).
 - **A canon that stays true**: one file per fact, checks that catch drift, and an agent that
   keeps it clean.
@@ -95,7 +96,7 @@ Full walkthrough: [SETUP.md](SETUP.md).
 | [outbound/OUTBOUND.md](outbound/OUTBOUND.md) | Clay target list → lemlist (warm/cold rails, UTMs) → click → LinkedIn connect → daily call list |
 | `outbound/` | Outbound scripts: `load-lemlist.py` (CRM-checked list load), `daily-call-list.py` (engagement ranking, phones, CALL tasks) |
 | [TRICKS.md](TRICKS.md) | Every gotcha we paid for, with the fix |
-| [close/CLOSE.md](close/CLOSE.md) | Close: deal → Summary of Terms + Order Form from `commercial.md` → Gmail draft → filed and tagged; Closed Won → draft HubSpot invoice |
+| [close/CLOSE.md](close/CLOSE.md) | Close: deal → Summary of Terms + Order Form from `commercial.md` → Gmail draft → filed and tagged; DocuSign signature → Closed Won → draft HubSpot invoice |
 | `sessions/` | Hooks that give every new Claude session a handoff from the last one |
 | `archive/` | Retired documents with tombstones. Never loaded as truth |
 

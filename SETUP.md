@@ -123,6 +123,7 @@ runbook, so the procedure lives in git.
   warm-up before the first campaign, so start that early.
 - `close/CLOSE.md` — the close: Summary of Terms and Order Form generated from the deal and
   `commercial.md` (or a custom offer), a Gmail draft for you to send, the copy filed and tagged,
-  then a draft HubSpot invoice on Closed Won. Needs `commercial.md` priced, your lawyer's Order
+  a DocuSign envelope whose signature moves the deal to Closed Won, then a draft HubSpot invoice.
+  Needs `commercial.md` priced, your lawyer's Order
   Form, and a HubSpot private-app token (the connector refuses invoice writes).
 - `TRICKS.md` — read once before you wire anything. Every gotcha there cost real time.

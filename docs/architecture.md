@@ -48,5 +48,6 @@ writes five properties; the CRM renders them. Exception: `card_route: slack-conn
 |---|---|
 | Score, tier, next-step proposal | agent |
 | Move a stage, send an email, merge records, change a price | person |
+| Closed Won on a completed DocuSign envelope | signature receiver |
 | Fix a dead pointer, close a finished task | KEEPER |
 | Change a rule | the person who owns it, recorded with a date in `non-negotiables.md` |

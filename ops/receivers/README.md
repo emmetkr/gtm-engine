@@ -7,6 +7,7 @@ Vercel functions, one project. Each has its own guide:
 | `api/booking-*.js` | this page |
 | `api/inbound-*.js` | [INBOUND.md](INBOUND.md): Clay enrichment, fit score, Slack card |
 | `api/lemlist-click-*.js` | [outbound/OUTBOUND.md](../../outbound/OUTBOUND.md): click → LinkedIn connect |
+| `api/sign-*.js` | [close/CLOSE.md](../../close/CLOSE.md): DocuSign envelope completed → Closed Won |
 | `api/invoice-*.js` | [close/CLOSE.md](../../close/CLOSE.md): Closed Won → draft invoice |
 
 ## Booking attribution

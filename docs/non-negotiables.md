@@ -37,7 +37,9 @@ Email, Slack to clients, contracts. Agents draft; a person sends.
 
 ## 5. Never move a deal stage unattended
 `[RULED by NAME, YYYY-MM-DD]`
-Agents propose a stage change in the recap; a person moves it.
+Agents propose a stage change in the recap; a person moves it. One exception: the signature
+receiver moves a deal to Closed Won when DocuSign reports every signer has signed. That is the
+buyer's signature, not an agent's judgment, and it moves nothing else.
 
 ## 6. Never guess a fact about a prospect
 `[RULED by NAME, YYYY-MM-DD]`
