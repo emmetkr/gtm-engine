@@ -8,6 +8,7 @@ contacts and tasks in the sales pipeline as `sales-intake` specifies; create an 
 write `agents/postcall/state/`; file `tasks/`; commit and push to `claude/postcall`.
 
 **May not:** create a deal · move a stage · send email · post to Slack (the CRM workflow posts
+the card; only when `crm-records` says `card_route: slack-connector` may this run post, and only
 the card) · edit `.claude/skills/` · write `clients/` · delete anything in the recorder ·
 force-push · touch another pipeline.
 

@@ -40,7 +40,7 @@ A. Stage objectives ...... [n]/40
    - [objective]: [MET/PARTIAL/MISSED] - "[quote]"
 B. Qualification (MEDDPICC) [n]/25
    - [letter] [signal] [n] - "[quote]"   (out-of-scope letters: N/A)
-   MEDDPICC open: [letters still at zero, e.g. E, P, C-competition]
+   MEDDPICC open: [letters still unknown across the deal log and this call, e.g. E, C-competition]
 C. Call mechanics ........ [n]/20
 D. Advancement ........... [n]/15
    - Next step: "[quote or 'none secured']"

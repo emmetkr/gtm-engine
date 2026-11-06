@@ -4,7 +4,8 @@
 
 1. Before sending, run `python3 ops/check-client-copy.py` and, if it carries a number,
    `python3 ops/check-corpus.py`.
-2. Send from `client-facing/` only.
+2. Send from `client-facing/`, or from `clients/<slug>/close/` for deal documents
+   (`close/CLOSE.md`).
 3. Tag the commit: `git tag client/<name>-<YYYY-MM-DD>` and push the tag. That tag answers
    "what did we tell them in August."
 4. Record the send in `clients/<slug>/record.md` → Artifact record.

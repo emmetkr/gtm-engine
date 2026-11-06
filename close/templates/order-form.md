@@ -30,8 +30,6 @@ Never type a figure here.
 
 {{fees_table}}
 
-**Payment terms.** {{payment_terms}}
-
 ## Service
 
 [[LAWYER: Describe the service being sold, in the words of your product reference. State only capabilities that product-context lists as live.]]

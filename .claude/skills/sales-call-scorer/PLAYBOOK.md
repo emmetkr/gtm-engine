@@ -1,7 +1,8 @@
 # The sales play
 
 Numbered so the scorer and meeting-prep can cite plays by number. Write what your best rep
-actually does, from transcripts, not what a sales book says.
+actually does, from transcripts, not what a sales book says. Keep the numbers, or update the play
+checklist in `RUBRIC.md` to match.
 
 ## The narrative arc (first and second calls)
 

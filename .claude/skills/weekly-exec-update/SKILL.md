@@ -14,7 +14,8 @@ description: >
 2. From each description log, read the newest entries since last Friday and the latest
    `Call score:` line.
 3. Check the calendar and inbox for the week. The CRM lags: a meeting the client booked from
-   their side, or a reply in Gmail, never reaches the record on its own.
+   their side, or a reply in Gmail, never reaches the record on its own. With no calendar or
+   Gmail connector, skip this and say so at the top of the digest.
 4. Name each deal's real blocker by its MEDDPICC letter (`sales-call-scorer/RUBRIC.md` §B):
    the deal's `blockers` field and the latest scorecard's "MEDDPICC open" line say which
    letters are still unknown for its stage.

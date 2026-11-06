@@ -1,7 +1,8 @@
 # POSTCALL — setup
 
 1. Run `sales-intake` by hand on five calls until the scores feel right (SETUP.md §3).
-2. In the Claude Code console, Routines → New. **Create it in the console UI, not from a
+2. Connect GitHub to your Claude account and install the Claude GitHub app on your repo, or
+   creating the Routine is refused. Then in the Claude Code console, Routines → New. **Create it in the console UI, not from a
    session**: a session-created Routine can land with no repository and no connectors and fire
    into an empty container for days.
    - Repository: this repo.

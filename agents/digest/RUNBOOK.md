@@ -1,7 +1,7 @@
 # DIGEST — the Friday run
 
 Schedule: Fridays, once, mid-afternoon in your timezone (write the UTC hour). Connectors: CRM
-(read), Google Drive or Slack.
+(read), Google Drive or Slack, plus calendar and Gmail (read) if you have them.
 
 **May:** read the CRM; write the digest doc; write `agents/digest/state/`; push to
 `claude/digest`. **May not:** write the CRM, send email.

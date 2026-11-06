@@ -1,12 +1,13 @@
 # Setup progress
 
 Claude ticks these as each step's check passes (see `SETUP.md`). Say "continue setup" to pick
-up at the first open box.
+up at the first open box. `[~]` means deferred on purpose, with a row in `NEEDS.md`.
 
+- [ ] 0. Your own private repo (`git remote -v` shows it)
 - [ ] 1a. What you sell (company-context, product-context, commercial.md, playbook)
 - [ ] 1b. Who outbound targets (company-context, Outbound targeting)
-- [ ] 1c. Which tools you use (crm-records, STACK.md notes)
-- [ ] 1. Check: `python3 ops/check-corpus.py` ends with `0 finding(s)`
+- [ ] 1c. Which tools you use (`STACK.md` § Our picks)
+- [ ] 1. Check: `python3 ops/check-corpus.py --only placeholders` and the default run both end with `0 finding(s)`
 - [ ] 2. CRM connected, properties created, stage IDs recorded, Slack card fires on a test deal
 - [ ] 3a. First call scored by hand (the engine is usable from here)
 - [ ] 3b. Five calls processed by hand, rubric tuned

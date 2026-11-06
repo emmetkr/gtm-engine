@@ -42,7 +42,7 @@ Two creators for one object is how duplicate deals happen.
 | Lead | `<ID>` | 0.05 | Created, not yet qualified | Discovery |
 | Qualified | `<ID>` | 0.10 | Qualified and first meeting booked | Discovery |
 | Demo | `<ID>` | 0.20 | First meeting held | Demo |
-| Trial | `<ID>` | 0.40 | Trial access granted | Proposal prep |
+| Trial | `<ID>` | 0.40 | Trial access granted | Proposal |
 | Proposal Sent | `<ID>` | 0.60 | Proposal delivered | Proposal |
 | Verbal | `<ID>` | 0.80 | Option chosen, paperwork pending | Negotiation |
 | Closed Won | `<ID>` | 1.0 | Signed | — |

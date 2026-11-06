@@ -9,7 +9,7 @@ reviewed in a diff and changed by editing a file, not a cron job nobody can see.
 | Agent | Kind | Runs | Owns (sole writer) | Never touches |
 |---|---|---|---|---|
 | **OPERATOR** | You in Claude Code | when you open it | whatever you ask | — |
-| **POSTCALL** | Cloud Routine | hourly | CRM deals/tasks in the sales pipeline, `agents/postcall/state/` | `clients/`, stages, email send, Slack |
+| **POSTCALL** | Cloud Routine | hourly | CRM deals/tasks in the sales pipeline, `agents/postcall/state/` | `clients/`, stages, email send, Slack (except the card on the `slack-connector` route) |
 | **DIGEST** | Cloud Routine | Fridays | `agents/digest/state/`, the Friday doc | the CRM (read only) |
 | **KEEPER** | Cloud Routine | daily | `clients/`, `tasks/`, `NEEDS.md`, `archive/` moves | the CRM, `client-facing/` sends |
 

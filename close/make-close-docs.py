@@ -52,7 +52,8 @@ FIGURE_KEYS = re.compile(r"price|amount|fee|cost|total|discount|rate", re.I)
 NUMBER = re.compile(r"\d[\d,]*(?:\.\d+)?")
 PLACEHOLDER = re.compile(r"\{\{\s*([\w.]+)\s*\}\}")
 LAWYER = re.compile(r"\[\[LAWYER:[^\]]*\]\]")
-DRAFT = re.compile(r"\bDRAFT\b", re.I)
+DRAFT = re.compile(r"\bDRAFT\b|\[(?i:draft)\]")
+PER_WORD = {"month": "per month", "quarter": "per quarter", "year": "per year", "one-time": "one time"}
 COMMENT = re.compile(r"<!--.*?-->", re.S)
 
 
@@ -80,16 +81,36 @@ def md_table(block):
 def money(cell):
     """The number in a price cell, or None. '$X/mo' style placeholders give None."""
     m = NUMBER.search(cell or "")
-    return float(m.group(0).replace(",", "")) if m else None
+    if not m:
+        return None
+    if re.match(r"\s?[kKmMbB]\b", (cell or "")[m.end():]):
+        die(f"price cell {cell!r} uses a shorthand magnitude. Write the full number")
+    return float(m.group(0).replace(",", ""))
 
 
-def period(billing):
-    b = (billing or "").lower()
-    if "month" in b:
-        return "month"
-    if "year" in b or "annual" in b:
-        return "year"
-    return "one-time"
+def period(billing, default=None):
+    """The billing period a cell names. The price in the same row is the price for that period.
+
+    Stops rather than guesses: a wrong period prints a wrong contract total on an order form.
+    """
+    raw = billing or ""
+    b = raw.lower()
+    # Phrases that mention a period without being one: "two months free", "12-month term".
+    b = re.sub(r"\b[\w-]+[ -]months?\s+free\b", " ", b)
+    b = re.sub(r"\b\d+[ -](?:months?|years?)\b(?:\s+(?:term|contract|minimum|commitment))?", " ", b)
+    found = [name for name, rx in (("quarter", r"\bquarter(?:ly|s)?\b"),
+                                   ("year", r"\b(?:annual|annually|yearly|years?|yr)\b"),
+                                   ("month", r"\b(?:monthly|months?|mo)\b")) if re.search(rx, b)]
+    if len(found) > 1:
+        die(f"billing {raw!r} names more than one period. Give each billing variant its own row, "
+            f"priced for that period (for example 'per quarter' at the quarterly price)")
+    if found:
+        return found[0]
+    if re.search(r"\b(?:one[- ]time|once|each|flat|free|trial|per [a-z]+)\b", b):
+        return "one-time"
+    if default:
+        return default
+    die(f"billing {raw!r} names no period. Say per month, per quarter, per year or one time")
 
 
 def load_canon():
@@ -98,8 +119,10 @@ def load_canon():
     text = CANON.read_text()
     offers = {r.get("offer", "").lower(): r for r in md_table(section(text, 1)) if r.get("offer")}
     addons = {r.get("item", "").lower(): r for r in md_table(section(text, 2)) if r.get("item")}
-    terms = " ".join(l.strip().lstrip("-* ").strip() for l in section(text, 4).splitlines()
-                     if l.strip() and not l.strip().startswith(("|", "#", "<!--")))
+    raw = [l.strip() for l in COMMENT.sub("", section(text, 4)).splitlines()
+           if l.strip() and not l.strip().startswith(("|", "#"))]
+    bullets = any(l.startswith(("-", "*")) for l in raw)
+    terms = ("; " if bullets else " ").join(l.lstrip("-* ").strip() for l in raw)
     return offers, addons, terms
 
 
@@ -110,6 +133,8 @@ def load_custom(slug):
     text = p.read_text()
     status = re.search(r"\*\*Status:\*\*\s*(.+)", text)
     status = status.group(1).strip() if status else ""
+    if status.startswith("<proposed"):
+        return None, {}   # the blank template, copied with the folder: this deal is standard
     if "<" in status or not status:
         die(f"{p.relative_to(ROOT)} has no Status line filled in; fill it or delete the file")
     if "lapsed" in status.lower():
@@ -174,9 +199,11 @@ def price_line(name, quantity, canon_row, custom, kind, cur, term_months):
         die(f"'{name}' is not in commercial.md ({kind} table) or in this client's custom offer")
     if unit_price is None:
         die(f"'{name}' has no number in its price cell ({src}). Fill commercial.md first")
-    per = period(billing)
+    per = period(billing, default=None if canon_row is not None else "one-time")
     if per == "month":
         term_total = unit_price * quantity * term_months
+    elif per == "quarter":
+        term_total = unit_price * quantity * term_months / 3
     elif per == "year":
         term_total = unit_price * quantity * term_months / 12
     else:
@@ -190,7 +217,7 @@ def fmt(cur, x):
 
 
 def terms_rows(lines, cur, deal, payment_terms):
-    per_word = {"month": "per month", "year": "per year", "one-time": "one time"}
+    per_word = PER_WORD
     rows = ["| Item | Terms | Details |", "|---|---|---|"]
     for l in lines:
         qty = f" x {l['quantity']}" if l["quantity"] != 1 else ""
@@ -459,7 +486,12 @@ def main():
     ap.add_argument("--skip-order-form", action="store_true")
     a = ap.parse_args()
 
+    if a.order_form_base and not a.order_form_base.exists():
+        die(f"{a.order_form_base} not found. Save your lawyer's Word form there, or use --preview or --skip-order-form")
     seller = json.loads((TEMPLATES / "seller.json").read_text())
+    unfilled = [p for p, v in walk(seller) if isinstance(v, str) and "CHANGE ME" in v and not p.startswith("_")]
+    if unfilled:
+        die(f"close/templates/seller.json still says CHANGE ME in: {', '.join(unfilled)}")
     cur = seller.get("currency_symbol") or "$"
     deal = json.loads(a.deal.read_text())
     check_deal(deal, cur)
@@ -491,7 +523,7 @@ def main():
            "date_long": long_date(a.date), "start_date_long": long_date(deal["start_date"]),
            "terms_table": table, "fees_table": table, "term_total": fmt(cur, total),
            "fees_lines": "\n".join(f"{l['name']}{' x ' + str(l['quantity']) if l['quantity'] != 1 else ''}: "
-                                   f"{fmt(cur, l['unit_price'])} per {l['period']}" for l in lines), "payment_terms": payment_terms or "Per the Agreement."}
+                                   f"{fmt(cur, l['unit_price'])} {PER_WORD[l['period']]}" for l in lines), "payment_terms": payment_terms or "Per the Agreement."}
 
     summary_md = fill((TEMPLATES / "summary-of-terms.md").read_text(), ctx)
     email_raw = fill((TEMPLATES / "terms-email.md").read_text(), ctx)
@@ -521,7 +553,7 @@ def main():
     print(f"deal: {deal['client']['legal_name']} ({slug}), offer {deal['offer']}, {term} months")
     print(f"custom offer: {custom_path.relative_to(ROOT) if custom_path else 'none (standard terms)'}")
     for l in lines:
-        print(f"  {l['name']} x{l['quantity']}: {fmt(cur, l['unit_price'])} per {l['period']}, "
+        print(f"  {l['name']} x{l['quantity']}: {fmt(cur, l['unit_price'])} {PER_WORD[l['period']]}, "
               f"term {fmt(cur, l['term_total'])}  [{l['source']}]")
     print(f"  total over the term: {fmt(cur, total)}")
     for f in findings:
@@ -543,7 +575,7 @@ def main():
         d = out_dir / "preview" if preview else out_dir
         d.mkdir(exist_ok=True)
         p = d / f"{stem}-{name}"
-        if p.stem in sent:
+        if p.stem in sent or f"{a.date}-SENT-{pathlib.Path(name).stem}" in sent:
             die(f"{p.name} is listed in {record.relative_to(ROOT)} as sent. It is in the client's "
                 f"hands: build a reissue with a new --date, never overwrite")
         return p

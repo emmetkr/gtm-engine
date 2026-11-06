@@ -7,14 +7,23 @@ Every defect a system like this has is one of three shapes:
   3. A figure restated somewhere it should only be cited.
 None needs judgment to detect, so check them mechanically.
 
-Run: python3 ops/check-corpus.py [--only pointers|prices]
+Run: python3 ops/check-corpus.py [--only pointers|prices|placeholders]
+
+A line holding a dollar figure that is not something you charge (a customer's revenue, a funding
+round) can carry the marker <!-- not-a-price -->. "$5M in revenue" style figures are skipped.
+
+--only placeholders is the setup check: it fails on an untouched clone and passes once the
+canon is filled. It is not part of the default run.
 """
 import json, pathlib, re, sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 CFG = json.loads((ROOT / "ops/checks.json").read_text())
 SKIP = {".git", "archive", "node_modules", "sessions", ".vercel"}
-MONEY = re.compile(r"\$\s?\d[\d,]*(?:\.\d+)?\s?(?:k|K|m|M)?\b")
+MONEY = re.compile(r"\$\s?\d[\d,]*(?:\.\d+)?\s?(?:k|K|m|M|b|B)?\b")
+# A magnitude describing a customer, not a price: "$500M-$5B in assets", "$1.2B assets".
+NOT_PRICE = re.compile(r"\$[\d.,]+\s?[KMBkmb]?(?:\s?(?:-|–|to)\s?\$?[\d.,]+\s?[KMBkmb]?)?\s+(?:in\s+|of\s+)?"
+                       r"(?:assets|revenue|arr|aum|funding|valuation|sales)\b", re.I)
 POINTER = re.compile(r"`([\w./-]+\.(?:md|py|json|sh|yml|js))`")
 
 
@@ -41,8 +50,11 @@ def check_prices():
         if r.startswith("ops/"):
             continue
         for n, line in enumerate(p.read_text(errors="ignore").splitlines(), 1):
-            if MONEY.search(line) and not price_ok(r, line):
-                out.append(f"{r}:{n}: figure outside commercial.md — cite it instead: {line.strip()[:100]}")
+            if "not-a-price" in line or (r.endswith("company-context/SKILL.md") and line.startswith("| Size")):
+                continue
+            if MONEY.search(NOT_PRICE.sub("", line)) and not price_ok(r, line):
+                out.append(f"{r}:{n}: figure outside commercial.md. Cite it instead, or mark the line "
+                           f"<!-- not-a-price --> if it is not something you charge: {line.strip()[:100]}")
     return out
 
 
@@ -63,12 +75,34 @@ def check_pointers():
     return out
 
 
+def check_placeholders():
+    """Setup step 1 is done only when the template text is gone."""
+    def read(p):
+        f = ROOT / p
+        return f.read_text(errors="ignore") if f.exists() else ""
+    out = []
+    if re.search(r"^This repo is COMPANY's", read("CLAUDE.md"), re.M):
+        out.append("CLAUDE.md: company name is still the placeholder")
+    commercial = read(CFG["commercial"])
+    if "YYYY-MM-DD" in commercial:
+        out.append(f"{CFG['commercial']}: 'Last ruled' is not filled")
+    if re.search(r"^\| Tier [12] \|", commercial, re.M):
+        out.append(f"{CFG['commercial']}: §1 still has the template tiers")
+    for n, line in enumerate(read(".claude/skills/company-context/SKILL.md").splitlines(), 1):
+        if re.fullmatch(r"\| (Company type|Size \(employees / revenue\)|Geography) \| *\|", line.strip()):
+            out.append(f"company-context:{n}: ICP row is empty: {line.strip()}")
+    rules = read("docs/non-negotiables.md").split("## 1.", 1)
+    if len(rules) > 1 and "RULED by NAME" in rules[1]:
+        out.append("docs/non-negotiables.md: rulings still say NAME; put who ruled and when")
+    return out
+
+
 def main():
     only = sys.argv[sys.argv.index("--only") + 1] if "--only" in sys.argv else None
-    checks = {"prices": check_prices, "pointers": check_pointers}
+    checks = {"prices": check_prices, "pointers": check_pointers, "placeholders": check_placeholders}
     total = 0
     for name, fn in checks.items():
-        if only and name != only:
+        if (only and name != only) or (not only and name == "placeholders"):
             continue
         found = fn()
         total += len(found)

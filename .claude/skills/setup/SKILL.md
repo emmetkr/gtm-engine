@@ -39,10 +39,10 @@ walking someone through them. Do not restate the steps here or anywhere else.
 - **Steps you cannot do for them** (connecting a connector, creating a CRM property in the UI,
   adding a GitHub secret, creating a Routine): tell them exactly where to click, one action per
   line, then wait until they say it's done. If they can't do it yet (no paid plan, no access),
-  record it in `NEEDS.md` and move on; don't wait forever.
+  record it in `NEEDS.md` and move on; mark the box `[~]` so the first-run prompt stops asking.
 - **Steps you can do for them** (writing files, running the checks, calling a connected CRM to
   read stage IDs): do them, then show the result.
-- **Run the check.** Every step in SETUP.md ends with a **Check**. Run it or have them run it.
+- **Run the check.** Most steps in SETUP.md end with a **Check**. Run it or have them run it.
   A step is done only when its check passes. If it fails, fix the cause before moving on.
 
 ## After each step
@@ -57,7 +57,7 @@ walking someone through them. Do not restate the steps here or anywhere else.
 `STACK.md` is a comparison, not a mandate. If they use a different CRM, call recorder or
 scheduler from the defaults, adapt the step to their tool and record the choice where step 1
 says to. If their tool has no Claude connector or API that can do the step, say so plainly,
-add it to `NEEDS.md`, and skip to the next step that doesn't depend on it. With no CRM, step 3
+add it to `NEEDS.md`, mark the box `[~]`, and skip to the next step that doesn't depend on it. With no CRM, step 3
 still runs: score calls with `sales-call-scorer` alone (SETUP.md §3).
 
 ## Done

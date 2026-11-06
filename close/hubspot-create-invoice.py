@@ -88,7 +88,7 @@ def lines_from_file(path, bill):
             desc = f"{l['name']}, {data['term_months']} months from {data['start_date']}"
         else:
             qty, price = l["quantity"], l["unit_price"]
-            desc = {"month": "First month", "year": "First year", "one-time": "One time"}[l["period"]]
+            desc = {"month": "First month", "quarter": "First quarter", "year": "First year", "one-time": "One time"}[l["period"]]
             desc = f"{l['name']}, {desc.lower()} from {data['start_date']}"
         out.append({"name": l["name"], "quantity": qty, "price": price, "description": desc})
     return out, data

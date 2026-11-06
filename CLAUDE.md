@@ -1,14 +1,15 @@
 # GTM system — agent instructions
 
-<!-- Replace COMPANY with your company name. Keep this file short: it loads into every session. -->
+<!-- Replace the placeholder on the line below with your company name, on that line only. Keep
+     this file short: it loads into every session. -->
 
 This repo is COMPANY's go-to-market system: the knowledge layer (skills) and the agent layer
 that runs on it.
 
 ## First run
 
-If this file still says COMPANY above, or `SETUP-PROGRESS.md` has open boxes in steps 1 to 3a,
-the engine is not set up yet. At the start of the session, before anything else, tell the user
+If the opening line above still holds the placeholder name, or `SETUP-PROGRESS.md` has an open
+`[ ]` box in steps 0 to 3a (a deferred `[~]` box does not count), the engine is not set up yet. At the start of the session, before anything else, tell the user
 that in one sentence and offer to walk them through setup. If they agree, run the `setup` skill.
 If they ask for something else first, help with that, and mention that answers will be generic
 until setup step 1 is done.
@@ -47,7 +48,7 @@ file loads automatically. Change a rule there first, then here.
    planned feature as live.
 3. **Never edit anything already in a client's hands** unless the change cannot alter what they
    believe was offered. A factual change is a reissue.
-4. **Never send email or post to clients on a person's behalf.** Agents write drafts.
+4. **Never send email, contracts or client messages on a person's behalf.** Agents write drafts.
 5. **Never move a deal stage unattended.** Agents propose; a person moves it.
 6. **Never guess a fact about a prospect.** It comes from enrichment or their own site, or it
    is cut.

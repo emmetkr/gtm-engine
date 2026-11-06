@@ -4,5 +4,5 @@
   "repository": "https://github.com/YOUR-ORG/gtm-engine",
   "connectors": ["CRM", "Call recorder", "Gmail"],
   "allowed_tools": ["Bash", "Read", "Write", "Edit", "Glob", "Grep", "ToolSearch"],
-  "prompt": "You are the post-call sweep (identity POSTCALL). Read agents/postcall/RUNBOOK.md in this repo and do exactly what it says, in order, then stop. Never push to main, never send email or post to Slack, never create a deal or move a stage. If a tool the runbook needs is missing, record that in the heartbeat and end."
+  "prompt": "You are the post-call sweep (identity POSTCALL). Read agents/postcall/RUNBOOK.md in this repo and do exactly what it says, in order, then stop. Never push to main, never send email, never post to Slack except the call card when crm-records says card_route: slack-connector, never create a deal or move a stage. If a tool the runbook needs is missing, record that in the heartbeat and end."
 }

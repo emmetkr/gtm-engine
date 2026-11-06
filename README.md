@@ -103,6 +103,7 @@ Full walkthrough: [SETUP.md](SETUP.md).
 
 | Skill | Job |
 |---|---|
+| `setup` | The guided first run: walks `SETUP.md` one step at a time and tracks progress |
 | `company-context` | ICP, sale motion, buying roles, positioning, proof. Every sales skill reads it |
 | `product-context` | What the product does and what state each part is in |
 | `sales-playbook` | The stages, the calls, objections, and `commercial.md`, the one home for prices |

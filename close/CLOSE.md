@@ -52,7 +52,7 @@ deal.
 
 | Section | Table columns it reads | Used for |
 |---|---|---|
-| `## §1 Offers` | Offer, Price, Billing, Includes | the main line. Billing containing "month" or "year" sets the period; anything else is one time |
+| `## §1 Offers` | Offer, Price, Billing, Includes | the main line. Billing names one period: per month, per quarter, per year or one time, and the Price in that row is the price for that period. Two periods in one cell ("per month, billed quarterly"), or none, stops the build |
 | `## §2 Add-ons` | Item, Price, Unit | extra lines. Unit doubles as billing ("per seat per month") |
 | `## §4 Terms` | prose or bullets | the Payment row and the Order Form's payment terms |
 
@@ -73,7 +73,7 @@ signature: Gmail adds yours only in its own compose window, so the draft goes ou
 unless the body already ends with it.
 
 **Check:** copy `close/templates/deal.example.json` to a scratch path, change the offer to one
-in your §1 table, and run `python3 close/make-close-docs.py <that file>`. The dry run prints the
+in your §1 table, empty `addons`, and run `python3 close/make-close-docs.py <that file>`. The dry run prints the
 priced lines and the filled Summary of Terms with no `STOP`.
 
 ### 3. The Order Form
@@ -180,6 +180,7 @@ for terms. The agent does not decide a deal is ready to close.
 ### 2. Write the deal file
 
 Claude reads the deal, its contact and its company from the CRM and writes
+Create the folder if it's the first document for this client (`clients/<slug>/close/`), then write
 `clients/<slug>/close/deal.json` in the shape of `close/templates/deal.example.json`: legal name,
 address, contact, signer, offer (exactly as named in `commercial.md` §1), add-ons with
 quantities, term in months, start date, CRM ids. The legal name and address come from the client
@@ -193,7 +194,8 @@ canon or the custom offer.
 
 ### 3. Custom offer, if negotiated
 
-A negotiated deal has `clients/<slug>/custom-offer.md` (copy `clients/_TEMPLATE/`), with a filled
+A negotiated deal has `clients/<slug>/custom-offer.md` (a blank copy from `clients/_TEMPLATE/` is
+ignored, so a standard deal can keep it), with a filled
 Status, a named approver, and a **Variance from standard** table. For each row whose Line matches
 the offer or an add-on, the script uses This deal instead of canon. A row named "Payment terms"
 replaces the §4 text.
@@ -213,6 +215,10 @@ python3 close/make-close-docs.py clients/<slug>/close/deal.json            # dry
 python3 close/make-close-docs.py clients/<slug>/close/deal.json --write \
     --order-form-base close/templates/order-form-base.docx
 ```
+
+No lawyer's form yet? Add `--preview` instead of `--order-form-base` to build the starter Order
+Form into `preview/`, marked not for sending, or `--skip-order-form` to build the Summary of
+Terms alone.
 
 Then run the copy checks on what was built:
 
@@ -254,9 +260,9 @@ Once the person confirms it went:
 
 1. Copy the PDFs exactly as attached to `clients/<slug>/outreach/<date>-SENT-<name>.pdf`, and the
    email text as sent to `clients/<slug>/outreach/<date>-SENT-terms-email.md`.
-2. Add a row to the **Artifact record** in `clients/<slug>/record.md` naming each file, the tag,
-   the date and the recipient. The generator reads this table and will never overwrite a file
-   listed there.
+2. Add a row to the **Artifact record** in `clients/<slug>/record.md` naming each `<date>-SENT-<name>`
+   file, the tag, the date and the recipient. The generator reads this table and stops rather
+   than overwrite anything built for a sent date.
 3. Commit, then `git tag client/<slug>-<YYYY-MM-DD>` and push the tag.
 
 A change after this point is a reissue: run the generator with a new `--date`, send again, new

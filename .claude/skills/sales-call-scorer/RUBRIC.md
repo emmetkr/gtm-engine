@@ -12,13 +12,13 @@
 ## A — Stage objectives (40)
 
 Use the block for the call type. Points split evenly across that stage's objectives unless
-weighted.
+weighted. MET = full points, PARTIAL = half, MISSED = 0.
 
 ### Discovery
 - Surfaced and sized the acute pain
 - Learned how they solve it today and why that fails
 - Mapped who decides and how they buy
-- Secured a dated next meeting with the right people
+- Secured a next meeting with the right people (its date is scored in D)
 
 ### Demo
 - Opened by restating their pain in their words
@@ -68,8 +68,10 @@ Metric).
 
 `B = (earned ÷ available in scope) × 25`
 
-Each MEDDPICC letter that is still Zero after the call is a gap the deal carries. `sales-intake`
-writes the open letters to the deal's `blockers`, and the digest and pipeline analysis read them.
+Open letters are worked out across the whole deal log plus this call, not this call alone: a
+letter nailed on an earlier call stays closed, and a letter surfaced on this call is closed even
+if it was N/A for the score. `sales-intake` writes the open letters to the deal's `blockers`,
+and the digest and pipeline analysis read them.
 
 ## C — Call mechanics (20)
 
@@ -85,11 +87,15 @@ writes the open letters to the deal's `blockers`, and the digest and pipeline an
 
 | Length | In scope |
 |---|---|
-| ≤ 30 min | the reframe (3), dated mutual next step (12), and demo to the pain (11) on demo calls only |
+| ≤ 30 min | the reframe (3), and demo to the pain (11) on demo calls only |
 | 31–45 min | + mine the acute pain (6) + one qualification question (8, 9 or 10) |
 | > 45 min | the full playbook |
 
-Everything else is `[N/A — call length]`, never `[MISSED]`.
+Play 12 (the next step) is scored in D, not here, so one missing date is charged once.
+
+Everything else is `[N/A — call length]`, never `[MISSED]`. Unknown duration: treat as ≤ 30 min
+and say so. A play left blank in `PLAYBOOK.md`: `[N/A — not defined]`. Insufficient evidence on
+any factor: half points, flagged. Factors in C and D score full, half or zero, like B.
 
 ## D — Advancement (15)
 

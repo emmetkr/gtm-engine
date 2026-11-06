@@ -9,6 +9,22 @@ that Claude has write access to these files, because the canon only works if it 
 controlled. Say the things in quotes below and let Claude ask follow-ups; do not pre-fill
 anything yourself.
 
+## 0. Make it your own private repo (5 min)
+
+This repo is about to hold your prices and client records, so it can't stay a clone of the public
+one, and it must never be a public fork. Say *"make this my private repo"*. Claude runs:
+
+```
+git remote rename origin upstream
+gh repo create <you>/<name> --private --source=. --remote=origin --push
+```
+
+No `gh`? Create an empty private repo on github.com, then `git remote set-url origin <url>` and
+`git push -u origin main`. Claude also writes your repo's URL into
+`agents/postcall/routine.json`.
+
+**Check:** `git remote -v` shows `origin` as your repo, and it shows as Private on GitHub.
+
 ## 1. Make it yours (30–45 min)
 
 Open the repo in Claude Code and say: *"Interview me and fill the canon."* This single
@@ -40,9 +56,12 @@ Claude then writes:
 | `.claude/skills/sales-playbook/SKILL.md` and `.claude/skills/sales-playbook/references/objections.md` | One block per call in your motion (rename or add blocks to match it); each objection with its scripted answer |
 | `docs/non-negotiables.md` | The rules that cause real damage. Each with who ruled and when |
 | `CLAUDE.md` | Company name, plus the derived copy of the non-negotiables |
-| `.claude/skills/crm-records/SKILL.md` and `STACK.md` § Our picks | Which tools you picked, so later steps wire the right ones instead of the defaults |
+| `STACK.md` § Our picks | Which tools you picked, so later steps wire the right ones instead of the defaults |
+| `ops/checks.json` → `banned_terms` | Your "words we never use", so the checks catch them |
 
-**Check:** `python3 ops/check-corpus.py` ends with `0 finding(s)`.
+**Check:** `python3 ops/check-corpus.py --only placeholders` and `python3 ops/check-corpus.py` both
+end with `0 finding(s)`. The first one fails on an untouched clone, so a pass means the canon is
+really filled.
 
 ## 2. Wire the CRM (30 min)
 
@@ -52,7 +71,9 @@ Claude then writes:
 3. Make the CRM's pipeline stages match the ladder in `crm-records` (rename or add stages in the
    CRM, or edit the ladder to match yours), then copy the pipeline and stage IDs into that table.
    It is the one home for them; `sales-intake` points at it.
-4. Build one CRM workflow: *when `last_call_at` is known or changes → post to the sales Slack
+4. Tell Claude your sales channel and who owns tasks on an unowned deal. It records them as
+   `sales_channel` and `default_owner` in `crm-records` § Card route and owners.
+5. Install HubSpot's Slack app (HubSpot → Marketplace → Slack), then build one CRM workflow: *when `last_call_at` is known or changes → post to the sales Slack
    channel* with deal name, grade, score, tier, headline, next step, blockers, owner, link.
 
    **No workflows on your plan?** HubSpot free and Starter can't post to Slack from a workflow
@@ -88,7 +109,8 @@ runbook, so the procedure lives in git.
 - `agents/digest/` — Friday digest to Slack or a doc.
 - `agents/keeper/` — daily hygiene: runs the checks, files tasks, keeps `NEEDS.md` honest.
 - `.github/workflows/heartbeat-watch.yml` — alerts if a routine goes quiet. Add the
-  `SLACK_WEBHOOK_URL` secret.
+  `SLACK_WEBHOOK_URL` secret, and list only the routines you've turned on in its `AGENTS` line, or
+  it alerts daily about the ones you haven't.
 - `sessions/` hooks are already wired in `.claude/settings.json`: every new session starts with
   a summary of the last one.
 - `ops/receivers/INBOUND.md` — book a demo → Clay-enriched lead → fit score → Slack card →
