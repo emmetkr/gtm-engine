@@ -223,8 +223,9 @@ def terms_rows(lines, cur, deal, payment_terms):
         qty = f" x {l['quantity']}" if l["quantity"] != 1 else ""
         rows.append(f"| {l['name']}{qty} | {fmt(cur, l['unit_price'])}{' each' if qty else ''} {per_word[l['period']]} | {l['detail']} |")
     total = sum(l["term_total"] for l in lines)
-    rows.append(f"| Term | {deal['term_months']} months | Starting {long_date(deal['start_date'])} |")
-    rows.append(f"| Total over the term | {fmt(cur, total)} | The lines above across {deal['term_months']} months |")
+    months = f"{deal['term_months']} month{'s' if deal['term_months'] != 1 else ''}"
+    rows.append(f"| Term | {months} | Starting {long_date(deal['start_date'])} |")
+    rows.append(f"| Total over the term | {fmt(cur, total)} | The lines above across {months} |")
     if payment_terms:
         rows.append(f"| Payment | {payment_terms} | |")
     return "\n".join(rows), total

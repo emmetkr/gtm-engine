@@ -18,7 +18,7 @@ walking someone through them. Do not restate the steps here or anywhere else.
 1. Read `SETUP.md` and `SETUP-PROGRESS.md`.
 2. If nothing is ticked, say in two or three sentences what they are about to build, that the
    whole thing takes about an hour to a first scored call, and that they can stop at any step
-   and pick up later by saying "continue setup". Then start step 1.
+   and pick up later by saying "continue setup". Then start step 0.
 3. If some steps are ticked, say which step is next and what it ends with, then start it.
 
 ## How to run each step

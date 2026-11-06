@@ -17,7 +17,7 @@
 // If enrichment throws, a bare card still posts, so no inbound goes unannounced.
 //
 // Env vars (Vercel project settings):
-//   HUBSPOT_ACCESS_TOKEN  private app token: contacts + companies read/write, lists read, owners read
+//   HUBSPOT_ACCESS_TOKEN  private app token: contacts + companies read/write, owners read
 //   HUBSPOT_PORTAL_ID     your portal id (for record links)
 //   CLAY_API_KEY          a clay_scoped_... key from Clay Settings > Account > API keys (beta).
 //                         The older clay_user_... key is rejected by the Public API.
@@ -262,7 +262,7 @@ function card(kind, id, p, out, fit, links, owner, li) {
   const co = p.company || out.clay_company_name || p.hs_email_domain || '';
   const L = [];
   if (MENTIONS.length) L.push(atMentions());
-  const when = fmtTime(p.hs_latest_meeting_activity) || p.booking_start_time || '';
+  const when = fmtTime(p.hs_latest_meeting_activity || p.booking_start_time);
   const form = (p.recent_conversion_event_name || '').replace(/:.*$/, '').trim();
   L.push(kind === 'booking'
     ? `:calendar: *${esc(name)}* booked a demo${when ? ` for *${esc(when)}*` : ''}`

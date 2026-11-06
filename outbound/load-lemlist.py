@@ -28,6 +28,7 @@ Env vars: LEMLIST_API_KEY (needed for --apply), HUBSPOT_ACCESS_TOKEN (strongly r
 --create-contacts needs the outbound_rail and outbound_campaign contact properties (step 3).
 """
 import argparse
+import re
 import base64
 import csv
 import json
@@ -140,7 +141,7 @@ def main():
                 why = 'free-mail address'
             elif domain in excluded or row.get('companyDomain', '').lower() in excluded:
                 why = 'excluded domain'
-            elif any(w in title for w in EXCLUDED_TITLE_WORDS):
+            elif re.search(r'\b(' + '|'.join(EXCLUDED_TITLE_WORDS) + r')\b', title):
                 why = f'excluded title ({row.get("jobTitle")})'
             elif per_domain.get(domain, 0) >= a.max_per_domain:
                 why = f'already {a.max_per_domain} at {domain}'

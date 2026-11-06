@@ -19,8 +19,8 @@ git remote rename origin upstream
 gh repo create <you>/<name> --private --source=. --remote=origin --push
 ```
 
-No `gh`? Create an empty private repo on github.com, then `git remote set-url origin <url>` and
-`git push -u origin main`. Claude also writes your repo's URL into
+No `gh`? Create an empty private repo on github.com, then run `git remote rename origin upstream`,
+`git remote add origin <url>` and `git push -u origin main`. Claude also writes your repo's URL into
 `agents/postcall/routine.json`.
 
 **Check:** `git remote -v` shows `origin` as your repo, and it shows as Private on GitHub.
@@ -72,7 +72,8 @@ really filled.
    CRM, or edit the ladder to match yours), then copy the pipeline and stage IDs into that table.
    It is the one home for them; `sales-intake` points at it.
 4. Tell Claude your sales channel and who owns tasks on an unowned deal. It records them as
-   `sales_channel` and `default_owner` in `crm-records` § Card route and owners.
+   `sales_channel` and `default_owner` in `crm-records` § Card route and owners, with
+   `card_route: workflow` unless step 5 says otherwise.
 5. Install HubSpot's Slack app (HubSpot → Marketplace → Slack), then build one CRM workflow: *when `last_call_at` is known or changes → post to the sales Slack
    channel* with deal name, grade, score, tier, headline, next step, blockers, owner, link.
 
@@ -115,7 +116,7 @@ runbook, so the procedure lives in git.
   a summary of the last one.
 - `ops/receivers/INBOUND.md` — book a demo → Clay-enriched lead → fit score → Slack card →
   deal. Includes the site snippet (`site/attribution.js`). Do it when you start running paid or
-  outbound traffic; each sub-step ends with a check.
+  outbound traffic (on a plan without send-webhook, see its Plan check); each sub-step ends with a check.
 - `outbound/OUTBOUND.md` — target list in Clay → lemlist, warm vs cold rail, UTM tags the
   inbound card can read, click → LinkedIn connect (`ops/receivers/api/lemlist-click-CHANGE-ME.js`),
   and the daily call list. Do it after the inbound flow; a new sending domain needs two weeks of

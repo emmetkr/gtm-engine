@@ -114,8 +114,8 @@ The scheduler is the easy part — embed its booking widget on your site, with U
 The actual work is that Calendly's own CRM integration drops the UTMs; it hands your CRM a name
 and email only. Fix:
 
-1. Create a hidden CRM form (Forms → create, no visible fields, one per booking-attribution
-   use) and note its portal ID and form ID.
+1. Create a hidden CRM form with the fields listed in `ops/receivers/README.md`, one per
+   booking-attribution use, and note its portal ID and form ID.
 2. Deploy `ops/receivers/api/booking-CHANGE-ME.js` (rename it) to Vercel. Fill in
    `PORTAL_ID`/`FORM_ID`. The function holds no secret — the CRM forms-submit endpoint is
    public, and the function's own URL path is the shared secret between Calendly and Vercel.

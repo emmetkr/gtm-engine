@@ -49,7 +49,7 @@ Create these as single-line text unless noted. Group them as "Inbound" so they'r
 |---|---|
 | `inbound_utm_source`, `inbound_utm_medium`, `inbound_utm_campaign`, `inbound_utm_content` | your site's forms |
 | `inbound_referrer`, `inbound_landing_page`, `inbound_form_page`, `posthog_distinct_id` | your site's forms |
-| `booking_utm_source`, `booking_utm_medium`, `booking_utm_campaign`, `booking_utm_content`, `booking_event_type`, `booking_answers` | booking receiver |
+| `booking_utm_source`, `booking_utm_medium`, `booking_utm_campaign`, `booking_utm_content`, `booking_event_type`, `booking_answers`, `booking_start_time` | booking receiver |
 | `clay_company_name`, `clay_company_size`, `clay_company_industry`, `clay_company_revenue`, `clay_company_location`, `clay_company_linkedin`, `clay_job_title`, `clay_person_location` | inbound receiver |
 | `clay_company_description`, `clay_match_note` (multi-line text), `clay_enriched_at` | inbound receiver |
 | `inbound_channel`, `inbound_campaign`, `inbound_channel_basis`, `inbound_fit_reasons` | inbound receiver |
@@ -122,12 +122,18 @@ Read the `card` and `out.clay_match_note`. If the fit feels wrong, edit `FIT`, r
 
 ## 8. HubSpot workflows
 
-Build three contact- or meeting-based workflows. **Build each once.** Duplicate copies of a
+**Plan check.** The "Send webhook" action needs Operations Hub (Data Hub) Professional or above,
+and any workflow needs a paid plan. Without them, skip this step: set `INBOUND_URL` (the inbound
+receiver's full URL) and `HUBSPOT_ACCESS_TOKEN` in Vercel, and the booking receiver hands every
+booking to the inbound receiver itself. Create deals by hand. Form fills then get no card, because
+nothing can tell the receiver about them; check your plan's custom-property limit too.
+
+Build three workflows. **Build each once.** Duplicate copies of a
 workflow (an old draft left on next to the final one) each fire, and two copies of the deal
 workflow create two identical deals 29 milliseconds apart.
 
-**Booking.** Trigger: a meeting is booked (meeting activity created, or the contact's
-`booking_event_type` is known). Actions:
+**Booking.** Trigger: the contact's `booking_event_type` is known. Don't trigger on the meeting
+activity: it can fire before the UTMs land. Actions:
 1. Send webhook: POST to `https://<project>.vercel.app/api/inbound-<suffix>?kind=booking`,
    contact object.
 2. Delay 3 minutes.
@@ -135,10 +141,12 @@ workflow create two identical deals 29 milliseconds apart.
    record link. This is the fallback for the day Vercel is down, not the main path; the
    receiver normally posts in seconds and stamps `ping_posted_at`, so this branch stays quiet.
 
-**Form.** Trigger: form submission on your site's forms. Same three actions with `?kind=form`.
+**Form.** Trigger: form submission on your site's forms. Exclude the Booking attribution form, or
+each booking posts two cards. Same three actions with `?kind=form`.
 
-**Create deal.** Trigger: same as Booking, plus "contact has no open deal". Action: create a
-deal in your pipeline's first stage, named from the company. Then add a second association on
+**Create deal.** Trigger: same as Booking, plus "contact has no open deal". Delay 3 minutes first:
+the receiver creates and links the company 10 to 50 seconds after the trigger, so an immediate
+copy finds no company. Action: create a deal in your pipeline's first stage, named from the company. Then add a second association on
 that action: **copy association** from the contact's primary company to the deal. Without it
 the deal shows no company.
 

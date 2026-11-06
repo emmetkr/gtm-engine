@@ -95,7 +95,9 @@ Play 12 (the next step) is scored in D, not here, so one missing date is charged
 
 Everything else is `[N/A — call length]`, never `[MISSED]`. Unknown duration: treat as ≤ 30 min
 and say so. A play left blank in `PLAYBOOK.md`: `[N/A — not defined]`. Insufficient evidence on
-any factor: half points, flagged. Factors in C and D score full, half or zero, like B.
+any factor: half points, flagged. Factors in C and D score full, half or zero, like B. If every
+in-scope play is N/A, drop the Play execution factor and scale C from 16 to 20. Round the total
+to the nearest whole number.
 
 ## D — Advancement (15)
 

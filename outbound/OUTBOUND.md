@@ -178,6 +178,8 @@ in Outbound targeting has looked at it.
 ## 7. Load the list into lemlist
 
 1. Create the campaign in lemlist (one per vertical, per rail). Copy its id from the URL.
+   Put `LEMLIST_API_KEY` and `HUBSPOT_ACCESS_TOKEN` (the `INBOUND.md` step 6 token) in `.env`, then
+   load them: `set -a; . ./.env; set +a`. The scripts read the environment, not the file.
 2. Dry run:
    ```
    python3 outbound/load-lemlist.py leads.csv --campaign <id> --rail cold \

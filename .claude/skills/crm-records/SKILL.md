@@ -17,7 +17,7 @@ values and verify them against the live portal before the first unattended run.
 | Object | Created by | Never created by |
 |---|---|---|
 | Contact | booking receiver, inbound form, enrichment | the post-call loop |
-| Deal | CRM workflow when a meeting is booked | any agent reading email or transcripts |
+| Deal | CRM workflow when a meeting is booked, or the founder by hand on a plan with no workflows | any agent reading email or transcripts |
 | Task | `sales-intake`, people | — |
 
 Two creators for one object is how duplicate deals happen.
@@ -26,8 +26,9 @@ Two creators for one object is how duplicate deals happen.
 
 <!-- Filled at setup step 2. -->
 
-- `card_route: workflow` (the CRM posts the call card) or `slack-connector` (`sales-intake`
-  posts it; for CRM plans without workflows)
+<!-- card_route is workflow (the CRM posts the call card) or slack-connector (sales-intake posts
+     it; for CRM plans without workflows). -->
+- `card_route: workflow`
 - `sales_channel: #CHANGE-ME`
 - `default_owner: NAME` (owns tasks on an unowned deal)
 

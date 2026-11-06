@@ -39,7 +39,8 @@ skills at run time; they never embed them.
 
 **Why the CRM posts the card, not the agent.** The card has the same shape every time, it fires
 for a human edit as well as an agent write, and the agent needs no Slack permission. The agent
-writes five properties; the CRM renders them.
+writes five properties; the CRM renders them. Exception: `card_route: slack-connector`, where
+`sales-intake` posts it.
 
 ## Who does what
 

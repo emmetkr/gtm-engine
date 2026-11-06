@@ -16,10 +16,10 @@
 // with no line items (a previous run died halfway); then this run fills it.
 //
 // Env vars (Vercel project settings):
-//   HUBSPOT_ACCESS_TOKEN  private app token. Scopes: crm.objects.invoices.write,
+//   HUBSPOT_ACCESS_TOKEN  private app token. Scopes: crm.objects.invoices.read/write,
 //                         crm.schemas.invoices.write, crm.objects.line_items.read/write,
-//                         e-commerce, crm.objects.deals.read/write, crm.objects.contacts.read,
-//                         crm.objects.companies.read. The Claude HubSpot connector refuses
+//                         e-commerce, crm.objects.deals.read/write, crm.objects.contacts.read/write
+//                         (tasks ride on contacts write), crm.objects.companies.read. The Claude HubSpot connector refuses
 //                         invoice writes, which is why this route exists.
 //   HUBSPOT_PORTAL_ID     your portal id (for the link in the task)
 //   CLOSED_WON_STAGE      optional, your Closed Won stage id (crm-records stage table); deals in

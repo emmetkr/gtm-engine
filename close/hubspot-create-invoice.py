@@ -21,6 +21,7 @@ scopes. A private-app token works.
 
 Token: HUBSPOT_ACCESS_TOKEN from the environment, or from a .env file at the repo root (it is
 gitignored). Never printed. Scopes the private app needs:
+  crm.objects.invoices.read                                the duplicate-invoice guard
   crm.objects.invoices.write, crm.schemas.invoices.write   the invoice
   crm.objects.line_items.write, e-commerce                 the line items (without these the
                                                            invoice is created and shows zero)

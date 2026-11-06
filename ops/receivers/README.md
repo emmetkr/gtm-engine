@@ -26,7 +26,13 @@ your booking links carry stop inside the scheduler. This receiver closes the gap
 ## Deploy
 
 1. Rename `api/booking-CHANGE-ME.js` with a random suffix (`openssl rand -hex 12`).
-2. Set `PORTAL_ID` and `FORM_ID` in it (public values).
+2. Create a HubSpot form named Booking attribution with `email`, `firstname`, `lastname`,
+   `booking_utm_source`, `booking_utm_medium`, `booking_utm_campaign`, `booking_utm_content`,
+   `booking_event_type`, `booking_answers` and `booking_start_time`. Copy its GUID from the form's
+   URL into `FORM_ID` and your portal id into `PORTAL_ID` (public values). A field missing from the
+   form rejects the whole submission, and the receiver still returns 200, so read `crm` in its
+   response: it must be 200.
 3. `npx vercel deploy --prod` from this folder. Turn Vercel Authentication off for production.
-4. Register the webhook with your scheduler's API (organization scope, `invitee.created`).
+4. Register the webhook with your scheduler's API (organization scope, `invitee.created`). For
+   Calendly see `STACK.md` § Scheduler, step 3 (paid plan, personal access token).
 5. Prove it: POST a fake payload and check the test contact in the CRM, then delete it.

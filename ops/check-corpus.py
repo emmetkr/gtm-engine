@@ -67,7 +67,7 @@ def check_pointers():
         for n, line in enumerate(p.read_text(errors="ignore").splitlines(), 1):
             for m in POINTER.finditer(line):
                 t = m.group(1)
-                if "<" in t or "/" not in t:
+                if "<" in t or "/" not in t or "CHANGE-ME" in t:
                     continue
                 cands = [ROOT / t, p.parent / t, skills / t]
                 if not any(c.exists() for c in cands):
@@ -94,6 +94,10 @@ def check_placeholders():
     rules = read("docs/non-negotiables.md").split("## 1.", 1)
     if len(rules) > 1 and "RULED by NAME" in rules[1]:
         out.append("docs/non-negotiables.md: rulings still say NAME; put who ruled and when")
+    if re.search(r"^\| \| \| live / beta / planned", read(".claude/skills/product-context/SKILL.md"), re.M):
+        out.append("product-context: Products table is still the template row")
+    if "<The objection in their words>" in read(".claude/skills/sales-playbook/references/objections.md"):
+        out.append("objections.md: no objection filled")
     return out
 
 

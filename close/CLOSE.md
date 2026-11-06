@@ -130,10 +130,10 @@ not supported"), even with invoice scopes granted. Invoices go through a private
 
 1. HubSpot → Settings → Integrations → Private apps → Create (or edit the one from
    `ops/receivers/INBOUND.md`).
-2. Scopes: `crm.objects.invoices.write`, `crm.schemas.invoices.write`,
-   `crm.objects.line_items.read`, `crm.objects.line_items.write`, `e-commerce`,
-   `crm.objects.deals.read`, `crm.objects.deals.write`, `crm.objects.contacts.read`,
-   `crm.objects.companies.read`.
+2. Scopes: `crm.objects.invoices.read`, `crm.objects.invoices.write`,
+   `crm.schemas.invoices.write`, `crm.objects.line_items.read`, `crm.objects.line_items.write`,
+   `e-commerce`, `crm.objects.deals.read`, `crm.objects.deals.write`,
+   `crm.objects.contacts.read`, `crm.objects.contacts.write`, `crm.objects.companies.read`.
 3. Put the token in `.env` at the repo root as `HUBSPOT_ACCESS_TOKEN=…` (gitignored), and in the
    Vercel project if you use the receiver. Add `HUBSPOT_PORTAL_ID` to both for links.
 
@@ -147,7 +147,8 @@ invoices`. A `403` means the invoice scope is missing.
 2. In Vercel set `HUBSPOT_ACCESS_TOKEN`, `HUBSPOT_PORTAL_ID`, `CLOSED_WON_STAGE` (your Closed Won
    stage id from the `crm-records` stage table), `INVOICE_NET_DAYS` (match `commercial.md` §4),
    and optionally `INVOICE_CURRENCY` and `INVOICE_COMMENTS`. Deploy from `ops/receivers/`.
-3. Build **one** HubSpot deal workflow: trigger "deal stage is Closed Won" in your pipeline, no
+3. Build **one** HubSpot deal workflow (the send-webhook action needs Operations Hub Professional
+   or above; without it, run `close/hubspot-create-invoice.py` by hand): trigger "deal stage is Closed Won" in your pipeline, no
    re-enrolment. Actions: send webhook, POST to
    `https://<project>.vercel.app/api/invoice-<suffix>`; then, if you like, a short delay and a
    Slack notification carrying the deal name and `hs_next_step`, which the receiver has just
@@ -183,7 +184,7 @@ Claude reads the deal, its contact and its company from the CRM and writes
 Create the folder if it's the first document for this client (`clients/<slug>/close/`), then write
 `clients/<slug>/close/deal.json` in the shape of `close/templates/deal.example.json`: legal name,
 address, contact, signer, offer (exactly as named in `commercial.md` §1), add-ons with
-quantities, term in months, start date, CRM ids. The legal name and address come from the client
+quantities, term in months (month-to-month: `term_months` is 1), start date, CRM ids. The legal name and address come from the client
 or their own paperwork, never a guess; if they are not known, ask.
 
 **No figures go in the deal file.** The script refuses a field named price, amount, fee, cost,
