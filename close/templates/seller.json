@@ -1,0 +1,11 @@
+{
+  "_comment": "Who is selling. CHANGE ME. Read by close/make-close-docs.py for every document and email. No figures here: prices live in commercial.md.",
+  "company_name": "CHANGE ME (trading name)",
+  "legal_name": "CHANGE ME (legal entity, e.g. Example Inc.)",
+  "product_line": "CHANGE ME (product or offer name for the header line)",
+  "signer_name": "CHANGE ME",
+  "signer_title": "CHANGE ME",
+  "currency_symbol": "$",
+  "signature_text": "CHANGE ME\nTitle | Company\nphone | email | website",
+  "signature_html": "<p style=\"margin-top:16px;font-family:Arial,sans-serif;font-size:13px;color:#222\"><b>CHANGE ME</b><br>Title | Company<br>phone | <a href=\"mailto:you@example.com\">you@example.com</a> | <a href=\"https://example.com\">example.com</a></p>"
+}

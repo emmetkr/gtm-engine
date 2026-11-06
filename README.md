@@ -81,6 +81,7 @@ Full walkthrough: [SETUP.md](SETUP.md).
 | [outbound/OUTBOUND.md](outbound/OUTBOUND.md) | Clay target list → lemlist (warm/cold rails, UTMs) → click → LinkedIn connect → daily call list |
 | `outbound/` | Outbound scripts: `load-lemlist.py` (CRM-checked list load), `daily-call-list.py` (engagement ranking, phones, CALL tasks) |
 | [TRICKS.md](TRICKS.md) | Every gotcha we paid for, with the fix |
+| [close/CLOSE.md](close/CLOSE.md) | Close: deal → Summary of Terms + Order Form from `commercial.md` → Gmail draft → filed and tagged; Closed Won → draft HubSpot invoice |
 | `sessions/` | Hooks that give every new Claude session a handoff from the last one |
 | `archive/` | Retired documents with tombstones. Never loaded as truth |
 

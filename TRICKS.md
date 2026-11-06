@@ -46,8 +46,8 @@ the list in the UI, then Claude attaches it by id.
 
 **The connector can't create invoices.** "Managing invoices is not supported." Fix: a private
 app token with `crm.objects.invoices.write`, `crm.schemas.invoices.write` and
-`crm.objects.line_items.write`. Without the line-items scope the invoice is created at $0 and the
-line item fails with a 403. Check a token's scopes with
+`crm.objects.line_items.write`. Without the line-items scope the invoice is created with a zero
+total and the line item fails with a 403. Check a token's scopes with
 `POST /oauth/v2/private-apps/get/access-token-info`. Keep invoices as drafts; a person sends them.
 
 **Duplicate workflows create duplicate records.** An old draft of a workflow left switched on

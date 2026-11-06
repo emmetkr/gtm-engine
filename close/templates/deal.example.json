@@ -1,0 +1,30 @@
+{
+  "_comment": "Copy to clients/<slug>/close/deal.json and fill from the CRM deal. No figures: never add a price, amount, fee, discount or total. The generator refuses a deal file that carries one, because figures come from commercial.md or the client's custom-offer.md only.",
+  "client": {
+    "slug": "acme-corp",
+    "legal_name": "Acme Corp, Inc.",
+    "display_name": "Acme",
+    "address": "1 Example Street, Example City, ST 00000"
+  },
+  "contact": {
+    "name": "Jane Doe",
+    "first_name": "Jane",
+    "title": "VP Marketing",
+    "email": "jane@example.com"
+  },
+  "signer": {
+    "name": "Jane Doe",
+    "title": "VP Marketing"
+  },
+  "offer": "Tier 1",
+  "addons": [
+    { "item": "Extra seat", "quantity": 2 }
+  ],
+  "term_months": 12,
+  "start_date": "2026-12-01",
+  "crm": {
+    "deal_id": "",
+    "company_id": "",
+    "contact_ids": []
+  }
+}

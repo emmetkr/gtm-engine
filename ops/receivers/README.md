@@ -1,7 +1,13 @@
 # Receivers
 
-Two Vercel functions. The full inbound flow (site snippet, Clay enrichment, fit score, Slack
-card, HubSpot workflows) is in [INBOUND.md](INBOUND.md); this page covers the booking receiver.
+Vercel functions, one project. Each has its own guide:
+
+| Function | Guide |
+|---|---|
+| `api/booking-*.js` | this page |
+| `api/inbound-*.js` | [INBOUND.md](INBOUND.md): Clay enrichment, fit score, Slack card |
+| `api/lemlist-click-*.js` | [outbound/OUTBOUND.md](../../outbound/OUTBOUND.md): click → LinkedIn connect |
+| `api/invoice-*.js` | [close/CLOSE.md](../../close/CLOSE.md): Closed Won → draft invoice |
 
 ## Booking attribution
 
