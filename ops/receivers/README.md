@@ -1,4 +1,9 @@
-# Receivers — booking attribution
+# Receivers
+
+Two Vercel functions. The full inbound flow (site snippet, Clay enrichment, fit score, Slack
+card, HubSpot workflows) is in [INBOUND.md](INBOUND.md); this page covers the booking receiver.
+
+## Booking attribution
 
 A scheduler's native CRM sync usually creates the contact with name and email only. The UTMs
 your booking links carry stop inside the scheduler. This receiver closes the gap.
@@ -9,8 +14,8 @@ your booking links carry stop inside the scheduler. This receiver closes the gap
    the shared secret.
 3. The CRM upserts the contact by email with `booking_utm_*` fields. An untagged booking gets
    `booking_utm_source = (none)` so silence is visible.
-4. A CRM workflow on the meeting waits a few minutes for this write, then pings Slack with the
-   source on it.
+4. The inbound receiver (`api/inbound-<secret>.js`) reads those fields, enriches the contact
+   through Clay and posts the Slack card. See [INBOUND.md](INBOUND.md).
 
 ## Deploy
 

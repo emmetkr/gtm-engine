@@ -13,7 +13,7 @@ up at the first open box.
 - [ ] 5a. Friday digest routine on
 - [ ] 5b. Daily keeper routine on
 - [ ] 5c. Heartbeat watch alerting (SLACK_WEBHOOK_URL secret added)
-- [ ] 5d. Booking attribution receiver deployed (only when running paid or outbound traffic)
+- [ ] 5d. Inbound flow live: site snippet, booking receiver, Clay key, Slack app, inbound receiver, HubSpot workflows (`ops/receivers/INBOUND.md`)
 
 ## Notes
 

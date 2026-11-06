@@ -74,6 +74,8 @@ Full walkthrough: [SETUP.md](SETUP.md).
 | `tasks/` | Work queue, one file per task, with an owner and a done-when |
 | `NEEDS.md` | Open decisions and gaps. The only open-items list |
 | `ops/` | Checks (`check-corpus.py`, `check-client-copy.py`) and webhook receivers |
+| [ops/receivers/INBOUND.md](ops/receivers/INBOUND.md) | Book a demo → Clay enrichment → fit score → Slack card → deal |
+| `site/attribution.js` | Website snippet: first-touch UTMs, Calendly handoff, hidden form fields |
 | `sessions/` | Hooks that give every new Claude session a handoff from the last one |
 | `archive/` | Retired documents with tombstones. Never loaded as truth |
 

@@ -129,7 +129,8 @@ and email only. Fix:
 
 ### Enrichment (Clay)
 
-1. Get a Clay API key from your workspace.
+1. Get a Clay API key from **Settings → Account → API keys (beta)**. It starts `clay_scoped_`.
+   The older Account → API key (`clay_user_...`) is rejected by the Public API.
 2. Clay's public API takes a `clay-api-key` header; endpoints exist for company-by-domain and
    person-by-name lookups, and for firing a custom enrichment workflow (a "table") you've built
    in Clay's UI.

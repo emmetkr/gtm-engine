@@ -80,4 +80,6 @@ runbook, so the procedure lives in git.
   `SLACK_WEBHOOK_URL` secret.
 - `sessions/` hooks are already wired in `.claude/settings.json`: every new session starts with
   a summary of the last one.
-- `ops/receivers/` — booking attribution, when you start running paid or outbound traffic.
+- `ops/receivers/INBOUND.md` — book a demo → Clay-enriched lead → fit score → Slack card →
+  deal. Includes the site snippet (`site/attribution.js`). Do it when you start running paid or
+  outbound traffic; each sub-step ends with a check.
