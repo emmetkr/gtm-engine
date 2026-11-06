@@ -42,8 +42,10 @@ believe on the 3rd, and who changed it."
 ## Quickstart (about an hour to first scored call)
 
 1. **Clone and open in Claude Code.** `git clone … && cd gtm-engine && claude`
-2. **Fill the canon.** Ask Claude *"walk me through SETUP.md"*. It interviews
-   you and fills `company-context`, `product-context` and `commercial.md`.
+2. **Say "set me up".** Claude walks you through setup one step at a time. It interviews you,
+   fills `company-context`, `product-context` and `commercial.md`, tells you exactly where to
+   click for the steps it can't do, and checks each step before moving on. Stop whenever you
+   like and say "continue setup" next time; progress is kept in `SETUP-PROGRESS.md`.
 3. **Connect the stack.** At minimum: a CRM, a call recorder with a Claude connector, Slack and
    Gmail. See [STACK.md](STACK.md).
 4. **Score a call by hand.** Paste a transcript and say *"process this call"*. That runs
