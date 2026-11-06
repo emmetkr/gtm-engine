@@ -41,7 +41,9 @@ believe on the 3rd, and who changed it."
 
 ## Quickstart (about an hour to first scored call)
 
-1. **Clone and open in Claude Code.** `git clone … && cd gtm-engine && claude`
+1. **Clone and open in Claude Code.** `git clone … && cd gtm-engine && claude`. Accept the
+   "trust this folder" prompt. Claude will ask before editing files under `.claude/skills/`;
+   approve those (or pick "always allow"), because that is setup writing your answers down.
 2. **Say "set me up".** Claude walks you through setup one step at a time. It interviews you,
    fills `company-context`, `product-context` and `commercial.md`, tells you exactly where to
    click for the steps it can't do, and checks each step before moving on. Stop whenever you
@@ -76,6 +78,9 @@ Full walkthrough: [SETUP.md](SETUP.md).
 | `ops/` | Checks (`check-corpus.py`, `check-client-copy.py`) and webhook receivers |
 | [ops/receivers/INBOUND.md](ops/receivers/INBOUND.md) | Book a demo → Clay enrichment → fit score → Slack card → deal |
 | `site/attribution.js` | Website snippet: first-touch UTMs, Calendly handoff, hidden form fields |
+| [outbound/OUTBOUND.md](outbound/OUTBOUND.md) | Clay target list → lemlist (warm/cold rails, UTMs) → click → LinkedIn connect → daily call list |
+| `outbound/` | Outbound scripts: `load-lemlist.py` (CRM-checked list load), `daily-call-list.py` (engagement ranking, phones, CALL tasks) |
+| [TRICKS.md](TRICKS.md) | Every gotcha we paid for, with the fix |
 | `sessions/` | Hooks that give every new Claude session a handoff from the last one |
 | `archive/` | Retired documents with tombstones. Never loaded as truth |
 

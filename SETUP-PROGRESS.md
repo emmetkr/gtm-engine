@@ -14,6 +14,9 @@ up at the first open box.
 - [ ] 5b. Daily keeper routine on
 - [ ] 5c. Heartbeat watch alerting (SLACK_WEBHOOK_URL secret added)
 - [ ] 5d. Inbound flow live: site snippet, booking receiver, Clay key, Slack app, inbound receiver, HubSpot workflows (`ops/receivers/INBOUND.md`)
+- [ ] 5e. Outbound sending live: separate domain warmed, tracking domain verified, CRM properties, first list loaded and approved (`outbound/OUTBOUND.md` steps 1-8)
+- [ ] 5f. Click → LinkedIn receiver deployed and hook registered; test click queued or tasked (`outbound/OUTBOUND.md` step 9)
+- [ ] 5g. First daily call list written to HubSpot (`outbound/OUTBOUND.md` step 10)
 
 ## Notes
 

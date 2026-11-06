@@ -38,28 +38,33 @@ A call that surfaces budget, authority and fit and correctly parks or disqualifi
 with a stated reason has met its objectives. Score A on the quality of the qualification, and
 mark `[QUALIFIED OUT]`. Never grade a clean disqualification as a failed advance.
 
-## B — Qualification depth (25)
+## B — Qualification depth: MEDDPICC (25)
 
-Score only signals advanced on THIS call, only signals in scope for the stage, and never a
-signal Dimension A already charged.
+The eight MEDDPICC signals. Score only signals advanced on THIS call, only signals in scope for
+the stage, and never a signal Dimension A already charged.
 
-| Signal | Pts | Full | Half | Zero |
-|---|---|---|---|---|
-| Pain depth | 5 | Quantified with impact | Named, not sized | Not surfaced |
-| Budget | 4 | Range or number confirmed | Vague reference | Avoided |
-| Authority | 4 | Economic buyer engaged or clear path | Named, not engaged | Unknown |
-| Timeline | 4 | Dated trigger event | Soft timeframe | None |
-| Decision process | 4 | How, who, criteria mapped | Partial | Unknown |
-| Champion | 4 | Active advocate coaching us | Friendly contact | None |
+| Letter | Signal | Pts | Full | Half | Zero |
+|---|---|---|---|---|---|
+| M | Metrics | 3 | The outcome they'd measure, with a number ("cut onboarding from 6 weeks to 2") | Outcome named, no number | Not surfaced |
+| E | Economic buyer | 4 | The person who signs is engaged, or a dated path to them; budget range known | Named, not engaged; budget vague | Unknown |
+| D | Decision criteria | 3 | What they'll judge vendors on, in their words | Partial | Unknown |
+| D | Decision process | 3 | Steps, people and dates from here to a decision | Partial | Unknown |
+| P | Paper process | 2 | Legal, security, procurement steps, owners and lead time | Mentioned | Unknown |
+| I | Identify pain | 4 | Acute pain, quantified, with the cost of doing nothing | Named, not sized | Not surfaced |
+| C | Champion | 4 | Has power, wants us to win, and is coaching us | Friendly contact | None |
+| C | Competition | 2 | Who else they're looking at, including doing nothing or building it | Hinted | Unknown |
 
 | Stage | In scope | N/A |
 |---|---|---|
-| Discovery | Budget, Authority, Timeline, Process, Champion | — |
-| Demo | Pain depth, Champion, Process | Budget, Authority, Timeline |
-| Proposal | all | — |
-| Negotiation | Budget, Authority, Process | Timeline |
+| Discovery | I, M, E, D-process, C-champion, C-competition | D-criteria, P |
+| Demo | I, M, D-criteria, C-champion, C-competition | E, D-process, P |
+| Proposal | all eight | — |
+| Negotiation / Procurement | E, D-process, P, C-competition | I, M, D-criteria |
 
 `B = (earned ÷ available in scope) × 25`
+
+Each MEDDPICC letter that is still Zero after the call is a gap the deal carries. `sales-intake`
+writes the open letters to the deal's `blockers`, and the digest and pipeline analysis read them.
 
 ## C — Call mechanics (20)
 

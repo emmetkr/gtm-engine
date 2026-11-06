@@ -4,7 +4,7 @@ description: >
   Scores a sales call 0–100 against the playbook ("did we run the play?") from a transcript.
   Use for "score this call", "grade my call", "how did that call go", or a transcript dropped
   for feedback. Scores execution (stage objectives, qualification depth, mechanics, next step),
-  with an evidence quote for every sub-score. Evaluates only; never writes to the CRM.
+  with an evidence quote for every sub-score. Qualification is scored on MEDDPICC. Evaluates only; never writes to the CRM.
   sales-intake calls it and does the writing.
 ---
 
@@ -38,8 +38,9 @@ Deal: [name]   [DEAL OVER-ADVANCED: call was X, deal is in Y]
 
 A. Stage objectives ...... [n]/40
    - [objective]: [MET/PARTIAL/MISSED] - "[quote]"
-B. Qualification ......... [n]/25
-   - [signal] [n] - "[quote]"   (out-of-scope signals: N/A)
+B. Qualification (MEDDPICC) [n]/25
+   - [letter] [signal] [n] - "[quote]"   (out-of-scope letters: N/A)
+   MEDDPICC open: [letters still at zero, e.g. E, P, C-competition]
 C. Call mechanics ........ [n]/20
 D. Advancement ........... [n]/15
    - Next step: "[quote or 'none secured']"

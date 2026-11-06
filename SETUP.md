@@ -53,7 +53,13 @@ Claude then writes:
 4. Build one CRM workflow: *when `last_call_at` is known or changes → post to the sales Slack
    channel* with deal name, grade, score, tier, headline, next step, blockers, owner, link.
 
-**Check:** set `last_call_at` on a test deal by hand. The card appears in Slack.
+   **No workflows on your plan?** HubSpot free and Starter can't post to Slack from a workflow
+   (that needs Professional). Connect the Slack connector in Claude instead and record
+   `card_route: slack-connector` in `crm-records`. `sales-intake` then posts the same card
+   itself, right after the CRM write. Upgrade later and switch the route back.
+
+**Check:** set `last_call_at` on a test deal by hand and the card appears in Slack. On the
+connector route, ask Claude to post a test card for that deal instead.
 
 ## 3. First call, by hand
 
@@ -83,3 +89,8 @@ runbook, so the procedure lives in git.
 - `ops/receivers/INBOUND.md` — book a demo → Clay-enriched lead → fit score → Slack card →
   deal. Includes the site snippet (`site/attribution.js`). Do it when you start running paid or
   outbound traffic; each sub-step ends with a check.
+- `outbound/OUTBOUND.md` — target list in Clay → lemlist, warm vs cold rail, UTM tags the
+  inbound card can read, click → LinkedIn connect (`ops/receivers/api/lemlist-click-CHANGE-ME.js`),
+  and the daily call list. Do it after the inbound flow; a new sending domain needs two weeks of
+  warm-up before the first campaign, so start that early.
+- `TRICKS.md` — read once before you wire anything. Every gotcha there cost real time.

@@ -61,10 +61,14 @@ Call `sales-call-scorer` with the transcript and the deal's stage mapped to a ca
 |---|---|---|
 | Agreed next action | `hs_next_step` | Replace. Owner and date or it is not a next step |
 | What happened | `description` | **Append** a dated entry (`crm-records` format) with the `Call score:` line |
-| Current obstacles | `blockers` | Replace |
+| Current obstacles | `blockers` | Replace. Lead with the scorecard's "MEDDPICC open" letters, then the obstacle in one line each (`E: CFO not met`) |
 | Stakeholder roles | contact `hs_buying_role` | Set when named or confirmed |
 | Stage readiness | — | Propose only, in the recap |
 | The call, for the card | the five `last_call_*` fields | Write all five in the same update. `last_call_at` fires the Slack card |
+
+If `crm-records` records `card_route: slack-connector` (a CRM plan with no workflows), post the
+card yourself through the Slack connector right after the write, with the fields the workflow
+would show: deal, grade, score, tier, headline, next step, blockers, owner, record link.
 
 Interactive: show the proposed writes and confirm. Unattended: write.
 

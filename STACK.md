@@ -24,7 +24,7 @@ before anything gets wired. Read this to understand the tradeoff, then tell Clau
 | **Outbound sequencing** | lemlist | Strong multichannel personalization (email + LinkedIn in one sequence) | Smartlead (deepest API, unlimited on paid tiers — the better fit if an agent needs to read/write campaigns), Instantly (gates API behind its Growth tier) | If an agent is going to manage campaigns programmatically, Smartlead is the stronger technical fit even though lemlist's UI is nicer |
 | **Scheduling** | Calendly | Webhook carries UTMs so bookings stay attributable | Cal.com (self-hostable, open API), HubSpot Meetings (no separate tool, weaker UTM handling) | — |
 | **Webhook receivers** | Vercel functions | Free tier, deploys straight from `ops/receivers/` | Cloudflare Workers, Netlify | — |
-| **Team signal** | Slack | One sales channel; the CRM workflow posts the card, agents never post directly | Teams | — |
+| **Team signal** | Slack | One sales channel; the CRM workflow posts the card (on a CRM plan without workflows, `sales-intake` posts it through the Slack connector) | Teams | — |
 | **Email** | Gmail connector | Agents draft in the rep's own thread; a person sends | Outlook connector | — |
 | **Docs** | Google Drive connector | Proposals and prep land where the team already works | Notion | — |
 | **Web + booking analytics** | PostHog | Booking conversions, funnels, all queryable by an agent | GA4 | — |
@@ -73,7 +73,7 @@ come later.
 
 | Stage of company | Stack |
 |---|---|
-| Solo founder, first 20 calls | Claude Code, GitHub, HubSpot free, Tactiq, Gmail |
+| Solo founder, first 20 calls | Claude Code, GitHub, HubSpot free, Tactiq, Gmail, Slack (free HubSpot has no workflows, so the card posts through the Slack connector) |
 | Founder + 1–3 sellers | + Slack card, Calendly receiver, Clay, a weekly digest routine |
 | Running outbound | + Smartlead or lemlist, PostHog, the keeper routine and its watchdog |
 | RevOps hire on board | + the sales engagement suite above, intent signals, n8n/Zapier for the long tail of small integrations |
