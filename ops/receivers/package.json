@@ -1,0 +1,7 @@
+{
+  "name": "gtm-receivers",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Webhook receivers: booking attribution, inbound enrichment + Slack card, lemlist click -> LinkedIn, Closed Won -> draft invoice.",
+  "engines": { "node": ">=20" }
+}

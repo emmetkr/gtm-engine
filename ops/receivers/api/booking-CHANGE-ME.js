@@ -3,7 +3,7 @@
 const PORTAL_ID = "YOUR_PORTAL_ID";
 const FORM_ID = "YOUR_HIDDEN_FORM_ID";
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).end();
   const p = (req.body && req.body.payload) || {};
   const t = p.tracking || {};
