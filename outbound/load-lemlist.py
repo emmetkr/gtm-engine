@@ -104,11 +104,17 @@ def main():
     ap.add_argument('--max-per-domain', type=int, default=2)
     ap.add_argument('--apply', action='store_true')
     ap.add_argument('--create-contacts', action='store_true', help='cold rail only: create each loaded lead in HubSpot')
+    ap.add_argument('--no-crm-check', action='store_true',
+                    help='allow --apply without HUBSPOT_ACCESS_TOKEN (you have no CRM yet, or checked the list yourself)')
     a = ap.parse_args()
 
     if a.apply and not os.environ.get('LEMLIST_API_KEY'):
         sys.exit('LEMLIST_API_KEY is not set.')
     use_hs = bool(os.environ.get('HUBSPOT_ACCESS_TOKEN'))
+    if a.apply and not use_hs and not a.no_crm_check:
+        sys.exit('HUBSPOT_ACCESS_TOKEN is not set, so the CRM checks cannot run and this load could email '
+                 'existing customers or people in an open deal. Set the token, or pass --no-crm-check '
+                 'if you have checked the list yourself.')
     if not use_hs:
         print('!! HUBSPOT_ACCESS_TOKEN not set: skipping the CRM checks. You may load people who are '
               'already customers or already in a deal.\n')
