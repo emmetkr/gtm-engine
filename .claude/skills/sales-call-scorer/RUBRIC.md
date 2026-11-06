@@ -1,9 +1,11 @@
 # Sales call scoring rubric
 
+**Version:** 1 (YYYY-MM-DD)
+
 **Total 100, four dimensions.** Evidence-based: every sub-score cites a quote or its absence.
 
 > Lessons built in from a live system: (1) give every stage in your pipeline its own objectives,
-> or demos get graded against discovery; (2) never charge the same signal in two dimensions;
+> or demos get graded against discovery; (2) never charge the same moment twice for the same reason;
 > (3) scale the play checklist to the call's length. Score the motion the call is actually in,
 > not the one three stages ahead.
 
@@ -40,8 +42,11 @@ mark `[QUALIFIED OUT]`. Never grade a clean disqualification as a failed advance
 
 ## B — Qualification depth: MEDDPICC (25)
 
-The eight MEDDPICC signals. Score only signals advanced on THIS call, only signals in scope for
-the stage, and never a signal Dimension A already charged.
+The eight MEDDPICC signals. Score only signals advanced on THIS call and only signals in scope
+for the stage. Dimension A judges whether an objective was attempted and met; B judges how
+deep each signal went. A signal may count in both. Metrics is the target they would measure
+success by, not the current state ("30 hours per release today" is Pain; "get it under 5" is a
+Metric).
 
 | Letter | Signal | Pts | Full | Half | Zero |
 |---|---|---|---|---|---|
@@ -80,8 +85,8 @@ writes the open letters to the deal's `blockers`, and the digest and pipeline an
 
 | Length | In scope |
 |---|---|
-| ≤ 30 min | the reframe, demo to the pain, dated mutual next step |
-| 31–45 min | + mine the acute pain + one qualification question |
+| ≤ 30 min | the reframe (3), dated mutual next step (12), and demo to the pain (11) on demo calls only |
+| 31–45 min | + mine the acute pain (6) + one qualification question (8, 9 or 10) |
 | > 45 min | the full playbook |
 
 Everything else is `[N/A — call length]`, never `[MISSED]`.
@@ -92,7 +97,7 @@ Everything else is `[N/A — call length]`, never `[MISSED]`.
 |---|---|
 | Next step with who, what and **when** | 6 |
 | Mutual commitment (they agreed to do something too) | 5 |
-| Moved the deal materially toward its next gate | 4 |
+| Moved the deal materially toward its next gate, beyond booking the next meeting | 4 |
 
 ## Grades
 

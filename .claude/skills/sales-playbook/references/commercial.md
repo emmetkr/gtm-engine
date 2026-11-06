@@ -9,6 +9,11 @@ The commit message names the change: `commercial: Pro tier $X → $Y (ruled by N
 
 **Last ruled:** YYYY-MM-DD by NAME
 
+**Machine-read.** `close/make-close-docs.py` reads the §1 and §2 tables by their column names, so
+keep the columns as they are. A billing variant (annual, quarterly) is its own row with its own
+price. Everything written in §4 is printed as the payment terms on order forms, so leave §4
+empty until it is ruled.
+
 ## §1 Offers
 
 | Offer | Price | Billing | Includes |
@@ -29,7 +34,7 @@ approver.
 
 ## §4 Terms
 
-Payment terms, contract length, cancellation.
+<!-- Payment terms, contract length, cancellation. Printed on order forms as written. -->
 
 ## §5 Not yet decided
 

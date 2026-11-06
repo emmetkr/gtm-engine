@@ -201,3 +201,17 @@ and email only. Fix:
 - Its native CRM sync creates the contact with name and email only; the UTMs stop inside
   Calendly. A webhook receiver that submits a hidden CRM form fixes attribution
   (`ops/receivers/`).
+
+## Our picks (filled at setup)
+
+<!-- Setup step 1c writes the tools you chose here, one line per layer, so later steps wire
+     those instead of the defaults above. -->
+
+| Layer | Our tool | Notes |
+|---|---|---|
+| CRM | | |
+| Call recorder | | |
+| Enrichment | | |
+| Outbound sequencing | | |
+| Scheduler | | |
+| Team signal | | |

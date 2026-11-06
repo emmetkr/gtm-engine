@@ -32,10 +32,14 @@ walking someone through them. Do not restate the steps here or anywhere else.
   objection, the price they actually quote. Push back on vague answers ("mid-market companies")
   until they are specific enough to score a call against.
 - **Never invent a fact about their company.** If they don't know an answer yet, write it as an
-  open row in `NEEDS.md` and keep going.
+  open row in `NEEDS.md` and keep going. Arithmetic from a rule they stated ("annual is two
+  months free" → annual = 10 × monthly) is written, and flagged in `NEEDS.md` for them to confirm.
+- **Ask who signs and who champions separately.** "The buyer" is often two people: the one who
+  feels the pain and the one who signs. `company-context` has a row for each.
 - **Steps you cannot do for them** (connecting a connector, creating a CRM property in the UI,
   adding a GitHub secret, creating a Routine): tell them exactly where to click, one action per
-  line, then wait until they say it's done.
+  line, then wait until they say it's done. If they can't do it yet (no paid plan, no access),
+  record it in `NEEDS.md` and move on; don't wait forever.
 - **Steps you can do for them** (writing files, running the checks, calling a connected CRM to
   read stage IDs): do them, then show the result.
 - **Run the check.** Every step in SETUP.md ends with a **Check**. Run it or have them run it.
@@ -53,10 +57,11 @@ walking someone through them. Do not restate the steps here or anywhere else.
 `STACK.md` is a comparison, not a mandate. If they use a different CRM, call recorder or
 scheduler from the defaults, adapt the step to their tool and record the choice where step 1
 says to. If their tool has no Claude connector or API that can do the step, say so plainly,
-add it to `NEEDS.md`, and skip to the next step that doesn't depend on it.
+add it to `NEEDS.md`, and skip to the next step that doesn't depend on it. With no CRM, step 3
+still runs: score calls with `sales-call-scorer` alone (SETUP.md §3).
 
 ## Done
 
-When step 3 is done (first call scored by hand), the engine is usable. Steps 4 and 5 automate
+When step 3a is done (first call scored by hand), the engine is usable. Steps 4 and 5 automate
 it. When every box is ticked, tell them setup is complete and what to say day to day:
 "prep me for [company]", "process this call", "how's the pipeline".

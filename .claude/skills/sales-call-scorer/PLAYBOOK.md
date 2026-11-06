@@ -31,6 +31,15 @@ actually does, from transcripts, not what a sales book says.
 12. **Engineer the next step** in the room: date, attendees, what each side brings.
 13. **Mutual action.** They commit to something too (data, an intro, a review).
 
+## Buying signals (same-day tier)
+
+A call where the prospect does one of these is tiered `same_day` by `sales-intake`. Edit to
+what your buyers actually say.
+
+- Asks for a trial or access.
+- "Can my whole team see this?"
+- Asks about pricing, contract terms or procurement.
+
 ## Anti-patterns (coaching flags)
 
 - Dodging an integration or capability question instead of answering it truthfully.

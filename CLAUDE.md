@@ -7,7 +7,7 @@ that runs on it.
 
 ## First run
 
-If this file still says COMPANY above, or `SETUP-PROGRESS.md` has open boxes in steps 1 to 3,
+If this file still says COMPANY above, or `SETUP-PROGRESS.md` has open boxes in steps 1 to 3a,
 the engine is not set up yet. At the start of the session, before anything else, tell the user
 that in one sentence and offer to walk them through setup. If they agree, run the `setup` skill.
 If they ask for something else first, help with that, and mention that answers will be generic
@@ -71,5 +71,6 @@ file loads automatically. Change a rule there first, then here.
 - Skills are versioned like code. A pricing change must be findable from its commit message.
 - Tag whenever something goes to a client: `client/<name>-<YYYY-MM-DD>`.
 - Several sessions may run at once. Never commit, rebase or switch branches in a shared
-  checkout: `git worktree add`, work there, push, remove.
+  checkout: `git worktree add`, work there, push, remove. Exception: setup, run alone in a fresh
+  clone, commits in place.
 - Scheduled agents push only to `claude/<agent>` branches, never to `main`.

@@ -22,6 +22,15 @@ values and verify them against the live portal before the first unattended run.
 
 Two creators for one object is how duplicate deals happen.
 
+## Card route and owners
+
+<!-- Filled at setup step 2. -->
+
+- `card_route: workflow` (the CRM posts the call card) or `slack-connector` (`sales-intake`
+  posts it; for CRM plans without workflows)
+- `sales_channel: #CHANGE-ME`
+- `default_owner: NAME` (owns tasks on an unowned deal)
+
 ## Pipeline
 
 **Deals pipeline `<PIPELINE_ID>`** is the only pipeline the post-call loop touches.

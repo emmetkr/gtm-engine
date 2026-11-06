@@ -36,26 +36,28 @@ Claude then writes:
 | `.claude/skills/company-context/SKILL.md` | ICP, outbound targeting, the sale motion, positioning, proof points |
 | `.claude/skills/product-context/SKILL.md` | Each product or module, what it does, and its state (live / beta / planned) |
 | `.claude/skills/sales-playbook/references/commercial.md` | Every price, tier, discount rule. The only file that sets a figure |
-| `.claude/skills/sales-call-scorer/PLAYBOOK.md` | The plays your best rep runs, numbered |
+| `.claude/skills/sales-call-scorer/PLAYBOOK.md` | The plays your best rep runs, numbered, and the buying signals that make a call same-day |
+| `.claude/skills/sales-playbook/SKILL.md` and `.claude/skills/sales-playbook/references/objections.md` | One block per call in your motion (rename or add blocks to match it); each objection with its scripted answer |
 | `docs/non-negotiables.md` | The rules that cause real damage. Each with who ruled and when |
 | `CLAUDE.md` | Company name, plus the derived copy of the non-negotiables |
-| `.claude/skills/crm-records/SKILL.md` and `STACK.md`'s own notes | Which tools you picked, so later steps wire the right ones instead of the defaults |
+| `.claude/skills/crm-records/SKILL.md` and `STACK.md` § Our picks | Which tools you picked, so later steps wire the right ones instead of the defaults |
 
-**Check:** `python3 ops/check-corpus.py` reports no figures outside `commercial.md`.
+**Check:** `python3 ops/check-corpus.py` ends with `0 finding(s)`.
 
 ## 2. Wire the CRM (30 min)
 
 1. Connect the CRM connector in Claude (Settings → Connectors).
 2. Create the custom deal properties in `crm-records` §Properties (`last_call_at`,
    `last_call_score`, `last_call_grade`, `last_call_tier`, `last_call_headline`, `blockers`).
-3. Copy your real pipeline and stage IDs into the stage table in `crm-records`. It is the one
-   home for them; `sales-intake` points at it.
+3. Make the CRM's pipeline stages match the ladder in `crm-records` (rename or add stages in the
+   CRM, or edit the ladder to match yours), then copy the pipeline and stage IDs into that table.
+   It is the one home for them; `sales-intake` points at it.
 4. Build one CRM workflow: *when `last_call_at` is known or changes → post to the sales Slack
    channel* with deal name, grade, score, tier, headline, next step, blockers, owner, link.
 
    **No workflows on your plan?** HubSpot free and Starter can't post to Slack from a workflow
    (that needs Professional). Connect the Slack connector in Claude instead and record
-   `card_route: slack-connector` in `crm-records`. `sales-intake` then posts the same card
+   `card_route: slack-connector` and your sales channel in `crm-records` § Card route. `sales-intake` then posts the same card
    itself, right after the CRM write. Upgrade later and switch the route back.
 
 **Check:** set `last_call_at` on a test deal by hand and the card appears in Slack. On the
@@ -69,10 +71,13 @@ own sense of the call. If the score is wrong, fix `RUBRIC.md` or `PLAYBOOK.md`, 
 
 Do five calls this way before automating. The rubric will need tuning; it always does.
 
+**No CRM connected yet?** Say *"score this call"* instead. `sales-call-scorer` runs on its own,
+writes nothing, and you still learn whether the rubric fits your calls. Tick 3a on that.
+
 ## 4. Turn on the post-call routine
 
 Follow `agents/postcall/README.md`. Create the Routine in the console UI with the repo and the
-CRM, call recorder and Gmail connectors attached. Its prompt is three lines that point at the
+CRM, call recorder and Gmail connectors attached (plus Slack on the connector card route). Its prompt is three lines that point at the
 runbook, so the procedure lives in git.
 
 **Check:** after the next real call, a card lands within the hour, and

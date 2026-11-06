@@ -35,11 +35,15 @@ Unless the change cannot alter what they believe was offered. Otherwise reissue 
 `[RULED by NAME, YYYY-MM-DD]`
 Email, Slack to clients, contracts. Agents draft; a person sends.
 
-## 5. Never guess a fact about a prospect
+## 5. Never move a deal stage unattended
+`[RULED by NAME, YYYY-MM-DD]`
+Agents propose a stage change in the recap; a person moves it.
+
+## 6. Never guess a fact about a prospect
 `[RULED by NAME, YYYY-MM-DD]`
 From enrichment or their own site, or cut.
 
-## 6. `archive/` is not part of the dataset
+## 7. `archive/` is not part of the dataset
 `[RULED by NAME, YYYY-MM-DD]`
 Load versus look: never load it as truth; do search it when hunting a past decision.
 

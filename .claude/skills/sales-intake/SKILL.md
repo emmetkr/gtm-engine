@@ -23,10 +23,14 @@ the deal owner.
 
 Plain text only in every output. No emojis.
 
+**Where the record lives.** The CRM deal's description log is the record of every call. A
+`clients/<slug>/` folder starts at proposal, when there are documents to keep (`close/CLOSE.md`).
+
 ## Step 0 — Is it a call to process?
 
 At least one attendee outside your domain, and a transcript of more than a few hundred words.
-Internal meetings are skipped. In unattended mode, the runbook also checks the transcript is
+Internal meetings are skipped. In interactive mode a transcript a person pasted is always
+processed; the length floor applies only to unattended runs. In unattended mode, the runbook also checks the transcript is
 finished (see its stub rules).
 
 ## Step 1 — Match the deal
@@ -49,7 +53,7 @@ Call `sales-call-scorer` with the transcript and the deal's stage mapped to a ca
 
 | Tier | Trigger | Effect |
 |---|---|---|
-| `same_day` | A buying signal from `PLAYBOOK.md` (trial ask, "can my whole team see this", a pricing or contract ask) | Card names the person who acts today. Tasks due today |
+| `same_day` | A buying signal from `PLAYBOOK.md` § Buying signals | Card names the person who acts today. Tasks due today |
 | `escalate` | Grade D or F, sentiment at-risk or critical, or `DEAL OVER-ADVANCED` | Card leads with the recommended move |
 | `standard` | Everything else | Recap, tasks, follow-up draft |
 
@@ -75,7 +79,7 @@ Interactive: show the proposed writes and confirm. Unattended: write.
 ## Step 5 — Tasks
 
 One CRM task per scorecard gap not already covered by an open task. Owner is the deal owner
-(unowned deal → the default owner named in `NEEDS.md`), due date set. Every task has an owner
+(unowned deal → `default_owner` in `crm-records`), due date set. Every task has an owner
 and a date or it is not a task.
 
 ## Step 6 — Follow-up draft

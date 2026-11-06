@@ -7,11 +7,14 @@
     "clients/": "custom-offer.md and [contracted] lines only; other figures are flagged",
     "tasks/": "a task may exist because a figure was wrong",
     "NEEDS.md": "struck rows record what a figure used to be",
-    "STACK.md": "tool notes, not our prices"
+    "STACK.md": "tool notes, not our prices",
+    "SETUP-PROGRESS.md": "setup notes may name a figure the founder gave"
   },
   "banned_terms": {
     "_example_old_product_name": "use the current product name",
     "seamless": "say what actually happens"
   },
-  "client_copy_paths": ["client-facing/"]
+  "client_copy_paths": [
+    "client-facing/"
+  ]
 }
