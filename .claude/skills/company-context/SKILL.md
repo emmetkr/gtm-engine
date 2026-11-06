@@ -40,6 +40,20 @@ description: >
 <!-- The stages from first touch to signature, in plain words. The CRM stage ladder that
      implements this lives in crm-records; link to it, do not restate the IDs here. -->
 
+## Outbound targeting
+
+<!-- Who to prospect is not the same question as who buys. The ICP above describes who closes;
+     this describes who an outbound agent or sequence should be aimed at, and who it should
+     never touch. -->
+
+| Field | Value |
+|---|---|
+| Who outbound should target | |
+| Signal that makes someone worth reaching now (funding, hire, tool change, posted content) | |
+| Channel (cold email, LinkedIn, both) | |
+| Exclusions (competitors, existing customers, do-not-contact) | |
+| Who approves a new outbound list before it goes live | |
+
 ## Positioning
 
 - **The problem, in the buyer's words:**

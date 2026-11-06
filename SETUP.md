@@ -2,19 +2,44 @@
 
 Do these in order. Each step ends with something you can check.
 
-## 1. Make it yours (30 min)
+**This is a conversation, not a form.** You do not open files and type into them. You talk,
+Claude writes. That works the same whether you're in the Claude Code CLI with this repo open,
+or just talking to Claude in chat and asking it to work on the repo — the only requirement is
+that Claude has write access to these files, because the canon only works if it is version
+controlled. Say the things in quotes below and let Claude ask follow-ups; do not pre-fill
+anything yourself.
 
-Open the repo in Claude Code and say: *"Interview me and fill the canon."* Claude asks
-questions and writes:
+## 1. Make it yours (30–45 min)
+
+Open the repo in Claude Code and say: *"Interview me and fill the canon."* This single
+conversation covers three things, not just company facts — Claude should ask about all three
+before it starts writing:
+
+**a. Who you are and what you sell.** ICP, who buys, the sale motion, positioning, proof
+points, every price and discount rule, the plays your best rep runs, the rules that would cause
+real damage if broken.
+
+**b. Who outbound should be aimed at.** Not the same question as who buys — this is who gets
+prospected, what signal makes someone worth reaching now, which channel, and who is explicitly
+off-limits (competitors, existing customers, do-not-contact). This becomes the "Outbound
+targeting" section of `company-context`.
+
+**c. What tools you already use or want to use.** Read `STACK.md` together with Claude first —
+it's a comparison, not a mandate. For each layer (CRM, call recorder, enrichment, outbound
+sequencing, scheduler), say what you have or what you want. Claude should not assume HubSpot,
+Clay, or lemlist just because those are this file's defaults.
+
+Claude then writes:
 
 | File | What goes in it |
 |---|---|
-| `.claude/skills/company-context/SKILL.md` | ICP, who buys, the sale motion, positioning, proof points |
+| `.claude/skills/company-context/SKILL.md` | ICP, outbound targeting, the sale motion, positioning, proof points |
 | `.claude/skills/product-context/SKILL.md` | Each product or module, what it does, and its state (live / beta / planned) |
 | `.claude/skills/sales-playbook/references/commercial.md` | Every price, tier, discount rule. The only file that sets a figure |
 | `.claude/skills/sales-call-scorer/PLAYBOOK.md` | The plays your best rep runs, numbered |
 | `docs/non-negotiables.md` | The rules that cause real damage. Each with who ruled and when |
 | `CLAUDE.md` | Company name, plus the derived copy of the non-negotiables |
+| `.claude/skills/crm-records/SKILL.md` and `STACK.md`'s own notes | Which tools you picked, so later steps wire the right ones instead of the defaults |
 
 **Check:** `python3 ops/check-corpus.py` reports no figures outside `commercial.md`.
 
