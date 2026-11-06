@@ -1,13 +1,27 @@
 # gtm-engine
 
-A plug-and-play go-to-market system run by Claude Code agents. Clone it, fill in what your
-company sells, connect your CRM and call recorder, and you have:
+A plug-and-play go-to-market system run by Claude Code agents. Clone it, open it in Claude
+Code and say **"set me up"**. Claude interviews you, writes your playbook and pricing into the
+repo, and walks you through connecting your CRM and call recorder one step at a time. Then you
+have:
 
 - **Call prep** before every meeting, built from your playbook and the deal's history.
 - **Post-call automation**: the call ends, a transcript is scored 0 to 100 against your
   playbook, the CRM deal is updated, follow-up tasks are created, a follow-up email is drafted,
   and a card lands in your sales Slack channel. Nobody types anything.
-- **A weekly pipeline digest** and deal-by-deal risk analysis.
+- **Calls graded on MEDDPICC.** Every call shows which letters it advanced and which are still
+  open, so coaching is specific and immediate.
+- **A weekly pipeline digest** and deal-by-deal risk analysis that names each deal's real
+  blocker by its MEDDPICC letter.
+- **Inbound that announces itself**: a demo booking or form fill is enriched through Clay,
+  scored for ICP fit, and posted to Slack in seconds with where they came from
+  ([INBOUND.md](ops/receivers/INBOUND.md)).
+- **Outbound**: Clay target lists into lemlist on warm and cold rails, a click that queues a
+  LinkedIn connect, and a daily call list ranked by engagement
+  ([OUTBOUND.md](outbound/OUTBOUND.md)).
+- **The close**: terms sheet and order form generated from the deal and your pricing, a Gmail
+  draft for you to send, and a draft invoice on Closed Won ([CLOSE.md](close/CLOSE.md)).
+- **Every gotcha we paid for**, with the fix ([TRICKS.md](TRICKS.md)).
 - **A canon that stays true**: one file per fact, checks that catch drift, and an agent that
   keeps it clean.
 
